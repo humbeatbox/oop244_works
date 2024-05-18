@@ -36,7 +36,7 @@
 .vscode
 cmake-build-debug/
 ws.dSYM/
-./idea
+.idea/
 correct_output.txt
 errors.txt
 student_output.txt

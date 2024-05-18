@@ -1,7 +1,8 @@
-understand the outcome
-1 check the email
-2 only newest one
-
-namespace
-protect
-system command is different
+In this workshop one , the most important part that I learned is not the module but namespace.
+Because we have already used the modular design in C language, I know how the important to separate the different function to the same file.
+However, the concept of name space is my the first time use in the program.
+Beginning with forgetting use the namespace in the header file, it spent me a lot of time to solve the problem.
+After many times of test and learn in the website, I finally make it correct.
+I think this is because we need to create and prototype in the header file and implement it in the cpp file.
+If we don't give a clear definition for the prototype by using the name space, compiler can't recognize which program that we implement belonging to.
+The other thing that I focus is that we need to make sure the operating system that the user use to prevent the error.
