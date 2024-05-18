@@ -1,6 +1,8 @@
-//
-// Created by Gary Chang on 2024-05-12.
-//
+//Name:Hsiao-Kang Chang
+//Seneca email:hchang67@myseneca.ca
+//Seneca Student ID:120049234
+//2024-05-12 Creat this file
+//Done on 2024-05-17
 
 #ifndef SENECA_UTILS_H
 #define SENECA_UTILS_H
