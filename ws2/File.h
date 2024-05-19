@@ -4,7 +4,17 @@
 //2024-05-17 Creat this file
 //Done on
 
-#ifndef WS2_FILE_H
-#define WS2_FILE_H
+#ifndef SENECA_FILE_H
+#define SENECA_FILE_H
+namespace seneca {
+    bool openFile(const char filename[]);
+    void closeFile();
+    int noOfRecords();
+    // TODO: Declare read prototypes
+//    bool read(const char arr[],char* name);
+    bool read(char* name);
+    bool read(int &intNum);
+    bool read(double &dulNum);
+}
 
-#endif //WS2_FILE_H
+#endif //SENECA_FILE_H

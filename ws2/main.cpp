@@ -1,6 +1,12 @@
-#include <iostream>
+#include "Employee.h"
+#include "File.h"
+using namespace seneca;
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+
+        if (load()) {
+            display();
+        }
+        deallocateMemory();
     return 0;
 }

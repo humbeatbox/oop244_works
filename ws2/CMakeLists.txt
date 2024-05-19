@@ -5,4 +5,6 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_executable(ws2 main.cpp
         File.cpp
-        File.h)
+        File.h
+        Employee.cpp
+        Employee.h)
