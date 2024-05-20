@@ -47,6 +47,7 @@ namespace seneca {
     if(read(emp->m_empNo) && read(emp->m_salary) && read(name)){
         emp->m_name = new char [strlen(name)+1];//the real name length of employees
         strcpy(emp->m_name,name);
+        //cout << "NO :" << emp->m_empNo << " Salary :" << emp->m_salary << " Name :" << emp->m_name <<endl;
         ok = true;
     }
 
@@ -81,10 +82,10 @@ bool load() {
         employees =  new struct Employee[noOfEmployees+1];
         for (i = 0; i<noOfEmployees ;i++) {
             load(&employees[i]);
-            cout <<"index " << i<< " emp num is "<< employees[i].m_empNo << endl;
+            //cout <<"index " << i<< " emp num is "<< employees[i].m_empNo << endl;
         }
 
-        if (i != noOfRecords()){
+        if (i != noOfEmployees){
             cout << "Error: incorrect number of records read; the data is possibly corrupted" << endl;
         }
         ok = true;
@@ -99,7 +100,7 @@ bool load() {
 // TODO: Implementation for the display functions go here
 
     void display(const struct Employee* emp){
-        cout << emp->m_empNo << ", " << emp->m_name << ", " << emp->m_salary << endl;
+        cout << emp->m_empNo << ": " << emp->m_name << ", " << emp->m_salary << endl;
     }
 
     void display(){
@@ -109,9 +110,8 @@ bool load() {
         sort();
         int i = 0;
         for (i = 0; i < noOfEmployees; ++i) {
-
             cout << i << "- " ;
-            display(&employees[i]);
+           display(&employees[i]);
         }
 
 
@@ -119,7 +119,11 @@ bool load() {
 
 // TODO: Implementation for the deallocateMemory function goes here
     void deallocateMemory(){
-
+        int i = 0;
+        for (i = 0; i < noOfEmployees; ++i) {
+            delete[] employees[i].m_name;
+            employees[i].m_name = nullptr;
+        }
         delete[] employees;
         employees = nullptr;
     }

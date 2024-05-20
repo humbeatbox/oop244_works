@@ -38,7 +38,7 @@ namespace seneca {
   bool read(int &intNum) {
       bool ret = false;
       if(fptr){
-          fscanf(fptr,"%d",&intNum);
+          fscanf(fptr,"%d,",&intNum);
           ret = true;
       }
       return ret;
@@ -46,7 +46,7 @@ namespace seneca {
     bool read(double &dulNum) {
         bool ret = false;
         if(fptr){
-            fscanf(fptr,"%lf",&dulNum);
+            fscanf(fptr,"%lf,",&dulNum);
             ret = true;
         }
         return ret;
