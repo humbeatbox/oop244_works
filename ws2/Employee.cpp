@@ -110,8 +110,8 @@ bool load() {
         sort();
         int i = 0;
         for (i = 0; i < noOfEmployees; ++i) {
-            cout << i << "- " ;
-           display(&employees[i]);
+            cout << i+1 << "- " ;
+            display(&employees[i]);
         }
 
 
