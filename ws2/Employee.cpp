@@ -28,7 +28,7 @@ namespace seneca {
             }
         }
     }
-
+    // loads a employee structure with its values from the file
     // TODO: Finish the implementation of the 1 arg display function which
     // reads one employee record from the file and loads it into the employee reference
     // argument
@@ -44,13 +44,19 @@ namespace seneca {
             make sure the "ok" flag is set to true
        end if
     */
-    if(emp != nullptr){
-        char* m_newMemory[strlen(emp->m_name)+1] ;
-        strcpy(*m_newMemory,emp->m_name);
+    if(emp->m_name != nullptr){
+        read(employees->m_empNo);
+        read(employees->m_salary);
+        read(name);
+        employees->m_name = new char [strlen(name)+1];//the real name length of employees
+        strcpy(employees->m_name,name);
         ok = true;
     }
+
     return ok;
 }
+
+
 // TODO: Finish the implementation of the 0 arg load function
 bool load() {
     bool ok = false;
@@ -74,20 +80,15 @@ bool load() {
 
          close the file
          */
-        //struct Employee arr[noOfRecords()+1];
-        //n.m_name = new char[strlen( name ) + 1];
         noOfEmployees = noOfRecords();
-        employees =  new struct Employee[noOfRecords()+1];
+        employees =  new struct Employee[noOfEmployees+1];
         for (i = 0; i<noOfEmployees+1 ;i++) {
-            //fscanf(pFile,"%d,%lf,%[^\n]", &employees[i].m_empNo,&employees[i].m_salary,employees[i].m_name);
+            load(&employees[i]);
             //read(employees[i].m_name);
-            read(employees[i].m_empNo);
-            read(employees[i].m_salary);
+//            read(employees[i].m_empNo);
+//            read(employees[i].m_salary);
+            //cout <<"index " << i<< " emp num is"<< employees[i].m_empNo << endl;
         }
-//        while (fscanf(pFile, "%d,%lf,%[^\n]", &employees[i].m_empNo, &employees[i].m_salary, employees[i].m_name)){
-//            i++;
-//            cout << i << endl;
-//        }
 
         if (i != noOfRecords()){
             cout << "Error: incorrect number of records read; the data is possibly corrupted" << endl;
@@ -114,7 +115,7 @@ bool load() {
         sort();
         int i = 0;
         for (i = 0; i < noOfEmployees; ++i) {
-            cout    << i << employees[i--].m_empNo << employees[i--].m_name << employees[i-1].m_salary << endl;
+            cout << i << employees[i--].m_empNo << employees[i--].m_name << employees[i-1].m_salary << endl;
         }
 
 

@@ -11,7 +11,7 @@ namespace seneca {
     void closeFile();
     int noOfRecords();
     // TODO: Declare read prototypes
-//    bool read(const char arr[],char* name);
+
     bool read(char* name);
     bool read(int &intNum);
     bool read(double &dulNum);

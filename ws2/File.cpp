@@ -25,54 +25,26 @@ namespace seneca {
         if (fptr) fclose(fptr);
     }
     // TODO: read functions go here
-/*    bool read(const char arr[],char* name) {
-        bool ret = false;
-        FILE* myfile = fopen(arr, "w");
-        if(myfile){
-            while (fscanf(myfile,"%[^\n]",name));
-            ret = true;
-        }
-        return ret;
-    }*/
+
     bool read(char* name) {
         bool ret = false;
-        //FILE* myfile = fopen(arr, "w");
+
         if(fptr){
             fscanf(fptr,"%[^\n]\n",name);
             ret = true;
         }
         return ret;
     }
-  /*  bool read(const char arr[],int &intNum) {
-        bool ret = false;
-        FILE* myfile = fopen(arr, "w");
-        if(myfile){
-            while (fscanf(myfile,"%d",&intNum));
-            ret = true;
-        }
-       return ret;
-    }*/
   bool read(int &intNum) {
       bool ret = false;
-      //FILE* myfile = fopen(arr, "w");
       if(fptr){
           fscanf(fptr,"%d",&intNum);
           ret = true;
       }
       return ret;
   }
-    /*bool read(const char arr[],double &dulNum) {
-        bool ret = false;
-        FILE* myfile = fopen(arr, "w");
-        if(myfile){
-            while (fscanf(myfile,"%lf",&dulNum));
-            ret = true;
-        }
-        return ret;
-    }*/
     bool read(double &dulNum) {
         bool ret = false;
-        //FILE* myfile = fopen(arr, "w");
         if(fptr){
             fscanf(fptr,"%lf",&dulNum);
             ret = true;
