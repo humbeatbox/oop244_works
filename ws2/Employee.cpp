@@ -32,7 +32,7 @@ namespace seneca {
     // TODO: Finish the implementation of the 1 arg display function which
     // reads one employee record from the file and loads it into the employee reference
     // argument
-    bool load(const struct Employee* emp) {
+    bool load(struct Employee* emp) {
     bool ok = false;
     char name[128];
     /* if reading of employee number, salay and name are successful
@@ -44,12 +44,9 @@ namespace seneca {
             make sure the "ok" flag is set to true
        end if
     */
-    if(emp->m_name != nullptr){
-        read(employees->m_empNo);
-        read(employees->m_salary);
-        read(name);
-        employees->m_name = new char [strlen(name)+1];//the real name length of employees
-        strcpy(employees->m_name,name);
+    if(read(emp->m_empNo) && read(emp->m_salary) && read(name)){
+        emp->m_name = new char [strlen(name)+1];//the real name length of employees
+        strcpy(emp->m_name,name);
         ok = true;
     }
 
@@ -82,12 +79,9 @@ bool load() {
          */
         noOfEmployees = noOfRecords();
         employees =  new struct Employee[noOfEmployees+1];
-        for (i = 0; i<noOfEmployees+1 ;i++) {
+        for (i = 0; i<noOfEmployees ;i++) {
             load(&employees[i]);
-            //read(employees[i].m_name);
-//            read(employees[i].m_empNo);
-//            read(employees[i].m_salary);
-            //cout <<"index " << i<< " emp num is"<< employees[i].m_empNo << endl;
+            cout <<"index " << i<< " emp num is "<< employees[i].m_empNo << endl;
         }
 
         if (i != noOfRecords()){
@@ -115,7 +109,9 @@ bool load() {
         sort();
         int i = 0;
         for (i = 0; i < noOfEmployees; ++i) {
-            cout << i << employees[i--].m_empNo << employees[i--].m_name << employees[i-1].m_salary << endl;
+
+            cout << i << "- " ;
+            display(&employees[i]);
         }
 
 
@@ -123,6 +119,7 @@ bool load() {
 
 // TODO: Implementation for the deallocateMemory function goes here
     void deallocateMemory(){
+
         delete[] employees;
         employees = nullptr;
     }

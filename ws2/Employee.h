@@ -20,7 +20,7 @@ namespace seneca {
     void sort();
 
     // loads a employee structue with its values from the file
-    bool load(const struct Employee* employee);
+    bool load(struct Employee* employee);
 
     // allocates the dyanmic array of employees and loads all the file
     // recoreds into the array
