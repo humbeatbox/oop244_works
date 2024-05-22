@@ -2,10 +2,7 @@
 //Seneca email:hchang67@myseneca.ca
 //Seneca Student ID:120049234
 //2024-05-19 Creat this file
-//Done on
-
-//
-
+//Done on 2024-05-22
 #ifndef SENECA_EMPLOYEE_H
 #define SENECA_EMPLOYEE_H
 #define DATAFILE "employees.csv"
@@ -29,7 +26,6 @@ namespace seneca {
 // TODO: Declare the prototype for the display function that
 // displays a employee record on the screen:
     void display(const struct Employee* emp);
-
 // TODO: Declare the prototype for the display function that
 // first sorts the employees then displays all the employees on the screen
     void display();

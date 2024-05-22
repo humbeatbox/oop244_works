@@ -2,8 +2,7 @@
 //Seneca email:hchang67@myseneca.ca
 //Seneca Student ID:120049234
 //2024-05-19 Creat this file
-//Done on
-
+//Done on 2024-05-22
 //
 #include <iostream>
 #include <cstring>
@@ -35,22 +34,11 @@ namespace seneca {
     bool load(struct Employee* emp) {
     bool ok = false;
     char name[128];
-    /* if reading of employee number, salay and name are successful
-            allocate memory to the size of the name + 1
-            and keep its address in the name of the Employee Reference
-
-            copy the name into the newly allocated memroy
-
-            make sure the "ok" flag is set to true
-       end if
-    */
     if(read(emp->m_empNo) && read(emp->m_salary) && read(name)){
         emp->m_name = new char [strlen(name)+1];//the real name length of employees
         strcpy(emp->m_name,name);
-        //cout << "NO :" << emp->m_empNo << " Salary :" << emp->m_salary << " Name :" << emp->m_name <<endl;
         ok = true;
     }
-
     return ok;
 }
 
@@ -60,31 +48,11 @@ bool load() {
     bool ok = false;
     int i = 0;
     if (openFile(DATAFILE)) {
-    //FILE* pFile = fopen(DATAFILE, "r");
-        /*
-         Set the noOfEmployees to the number of recoreds in the file.
-         dyanamically allocated an array of employees into the global
-         Employee pointer; "employees" to the size of the noOfEmployees.
-
-         In a loop load the employee records from the file into
-         the dynamic array.
-
-         If the number of the records does not match the number of reads
-            print the message
-           "Error: incorrect number of records read; the data is possibly corrupted"
-         Otherwise
-            set the ok flag to true
-         End if
-
-         close the file
-         */
         noOfEmployees = noOfRecords();
         employees =  new struct Employee[noOfEmployees+1];
         for (i = 0; i<noOfEmployees ;i++) {
             load(&employees[i]);
-            //cout <<"index " << i<< " emp num is "<< employees[i].m_empNo << endl;
         }
-
         if (i != noOfEmployees){
             cout << "Error: incorrect number of records read; the data is possibly corrupted" << endl;
         }
@@ -98,11 +66,9 @@ bool load() {
 }
 
 // TODO: Implementation for the display functions go here
-
     void display(const struct Employee* emp){
         cout << emp->m_empNo << ": " << emp->m_name << ", " << emp->m_salary << endl;
     }
-
     void display(){
         cout << "Employee Salary report, sorted by employee number\n"
                 "no- Empno, Name, Salary\n"
@@ -113,8 +79,6 @@ bool load() {
             cout << i+1 << "- " ;
             display(&employees[i]);
         }
-
-
     }
 
 // TODO: Implementation for the deallocateMemory function goes here
@@ -127,6 +91,4 @@ bool load() {
         delete[] employees;
         employees = nullptr;
     }
-
-
 }

@@ -1,0 +1,7 @@
+This workshop very clearly showed us how to do the polymorphism.
+Beginning with the chaos of the whole thing, it's hard for me to know and understand why we need different functions with the same name.
+After I tried a lot of different way(like draw a diagram of flow and process data diagram), I finally understand how the instruction's meaning.
+I assume that I can't quickly figure it out because I do not fully know how to get data in Employee.cpp from the File.cpp instead of using a different type of function read() in Employee.cpp directly.
+This also led to me going crazy at that time.
+However, I recognize it is so easy when I know the whole concept and meaning of polymorphism and can use the new way(what File is do) to module.
+Another thing is how to use a pointer in reading a file and how different between the pass by value and pass by reference(using pointer).

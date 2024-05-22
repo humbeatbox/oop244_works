@@ -40,3 +40,4 @@ ws.dSYM/
 correct_output.txt
 errors.txt
 student_output.txt
+*_prof.cpp
