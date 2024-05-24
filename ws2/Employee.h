@@ -17,7 +17,7 @@ namespace seneca {
     void sort();
 
     // loads a employee structue with its values from the file
-    bool load(struct Employee* employee);
+    bool load(struct Employee &employee);
 
     // allocates the dyanmic array of employees and loads all the file
     // recoreds into the array
@@ -25,7 +25,8 @@ namespace seneca {
 
 // TODO: Declare the prototype for the display function that
 // displays a employee record on the screen:
-    void display(const struct Employee* emp);
+//    void display(const struct Employee* emp);
+    void display(const struct Employee &emp);
 // TODO: Declare the prototype for the display function that
 // first sorts the employees then displays all the employees on the screen
     void display();

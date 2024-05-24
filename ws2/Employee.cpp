@@ -31,17 +31,26 @@ namespace seneca {
     // TODO: Finish the implementation of the 1 arg display function which
     // reads one employee record from the file and loads it into the employee reference
     // argument
-    bool load(struct Employee* emp) {
+//    bool load(struct Employee* emp) {
+//    bool ok = false;
+//    char name[128];
+//    if(read(emp->m_empNo) && read(emp->m_salary) && read(name)){
+//        emp->m_name = new char [strlen(name)+1];//the real name length of employees
+//        strcpy(emp->m_name,name);
+//        ok = true;
+//    }
+//    return ok;
+//    }
+    bool load(struct Employee &emp) {
     bool ok = false;
     char name[128];
-    if(read(emp->m_empNo) && read(emp->m_salary) && read(name)){
-        emp->m_name = new char [strlen(name)+1];//the real name length of employees
-        strcpy(emp->m_name,name);
+    if(read(emp.m_empNo) && read(emp.m_salary) && read(name)){
+        emp.m_name = new char [strlen(name)+1];//the real name length of employees
+        strcpy(emp.m_name,name);
         ok = true;
     }
     return ok;
-}
-
+    }
 
 // TODO: Finish the implementation of the 0 arg load function
 bool load() {
@@ -51,7 +60,7 @@ bool load() {
         noOfEmployees = noOfRecords();
         employees =  new struct Employee[noOfEmployees+1];
         for (i = 0; i<noOfEmployees ;i++) {
-            load(&employees[i]);
+            load(employees[i]);
         }
         if (i != noOfEmployees){
             cout << "Error: incorrect number of records read; the data is possibly corrupted" << endl;
