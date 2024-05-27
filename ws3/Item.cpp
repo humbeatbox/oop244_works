@@ -54,16 +54,19 @@ namespace seneca {
                 cout <<"| " ;
                 cout.width(20);
                 cout.setf( ios::left );
-                cout << m_itemName;
                 cout.fill('.');
+                cout << m_itemName;
                 cout.unsetf( ios::left );
+                cout.fill(' ');
 
                 cout << " | " ;
                 cout.setf( ios::right );
+                cout.setf( ios::fixed );
                 cout.width(7);
                 cout.precision( 2 );
                 cout << m_price;
                 cout.unsetf( ios::right );
+                cout.unsetf( ios::fixed );
 
                 cout << " | " ;
 
@@ -72,14 +75,14 @@ namespace seneca {
 //                }else{
 //                    cout << "No" ;
 //                }
-                (m_taxed)?cout << "Yes":cout << "No";
+                (m_taxed)?cout << "Yes":cout << "No ";
                 cout << " |" << endl;
             }else{
                 cout <<"| xxxxxxxxxxxxxxxxxxxx | xxxxxxx | xxx |" << endl;
             }
         }
 
-        //Returns true if the Item is not set to the empty state (As done in setEmpty function) .
+        //Returns true if the Item is not set to the empty state (As done in setEmpty function).
         //This function can not modify its owner.
         bool Item::isValid()const{
             bool ret = true;
@@ -95,9 +98,15 @@ namespace seneca {
             return m_price;
         }
 
-        //Returns the product of m_price and 0.13(define a constant double value for this tax rate). Or it returns 0.0 if the m_taxed is false.
+        //Returns the product of m_price and 0.13(define a constant double value for this tax rate).
+        // Or it returns 0.0 if the m_taxed is false.
         double Item::tax()const{
-            return (!m_taxed)? 0.0 :m_price*m_taxed;
+            double ret = 0.0;
+            if(m_taxed){
+               ret = m_price*0.13;
+            }
+            //return (!m_taxed)? 0.0 :m_price*m_taxed;
+            return ret;
         }
 
 }
