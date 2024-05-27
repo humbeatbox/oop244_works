@@ -15,49 +15,89 @@ namespace seneca {
 
     //private
         //for set the m_itemName
-        void Item::setName(const char* name){}//for set the m_itemName
+        void Item::setName(const char* name){
+        //TODO :should deallocate and it's looks weird
+            strcpy(m_itemName,name);
+        }
     //public:
         //set the Item to Empty State
         //m_itemName to
         //etting the m_itemName to a blank string (first character set to null)
-        void Item::setEmpty(){}
+        void Item::setEmpty(){
+        m_price = 0.0;
+        m_taxed = false;
+        m_itemName[0] = '\0';
+        //TODO::check the init
+        }
 
-/*    Sets the m_itemName attribute to the Cstring pointed by the name argument using the setName method and sets the m_price and m_taxed attributes to the corresponding arguments.
-    If price is less than 0 or name is null, then the Item is set to a recognizable invalid empty state (safe empty state).*/
-        void Item::set(const char* name, double price, bool taxed){}
+/*    Sets the m_itemName attribute to the Cstring pointed by the name argument using the setName method
+ * and sets the m_price and m_taxed attributes to the corresponding arguments.
+ * If price is less than 0 or name is null, then the Item is set to a recognizable invalid empty state (safe empty state).*/
+        void Item::set(const char* name, double price, bool taxed){
+            if (price < 0 ||name == nullptr){
+                setEmpty();
+            }else{
+                m_price = price;
+                m_taxed = taxed;
+                setName(name);
+            }
+        }
 
 /*    Prints an item in the following format.
-    If the Item is valid:*/
-        void Item::display()const{}
+    */
+    //If the Item is valid:
+/*
+            Newline*/
+        void Item::display()const{
+            if(isValid()){
+                //Milk 2%.............
+                cout <<"| " ;
+                cout.width(20);
+                cout.setf( ios::left );
+                cout << m_itemName;
+                cout.fill('.');
+                cout.unsetf( ios::left );
+
+                cout << " | " ;
+                cout.setf( ios::right );
+                cout.width(7);
+                cout.precision( 2 );
+                cout << m_price;
+                cout.unsetf( ios::right );
+
+                cout << " | " ;
+
+//                if(m_taxed){
+//                    cout << "Yes" ;
+//                }else{
+//                    cout << "No" ;
+//                }
+                (m_taxed)?cout << "Yes":cout << "No";
+                cout << " |" << endl;
+            }else{
+                cout <<"| xxxxxxxxxxxxxxxxxxxx | xxxxxxx | xxx |" << endl;
+            }
+        }
 
         //Returns true if the Item is not set to the empty state (As done in setEmpty function) .
         //This function can not modify its owner.
         bool Item::isValid()const{
             bool ret = true;
-
-
-            //If the Item is valid:
-/*            "| "
-            m_itemName; left-justified in 20 spaces, padded with '.' (dots)
-            " | "
-            m_price; right-justified in 7 spaces with two digits after the decimal point
-            " | "
-            if m_taxed is true prints "Yes" otherwise prints "No "
-                                                             " |"
-            Newline*/
-
+            //TODO : do something here but no idea everything look weird
+            if (m_price == 0.0 && !m_taxed && m_itemName[0] == '\0'){
+                ret = false;
+            }
             return ret;
         }
 
         //Returns the m_price attribute;
         double Item::price()const{
-            double ret = 0.0;
-            return ret;
+            return m_price;
         }
+
         //Returns the product of m_price and 0.13(define a constant double value for this tax rate). Or it returns 0.0 if the m_taxed is false.
         double Item::tax()const{
-            double ret = 0.0;
-            return ret;
+            return (!m_taxed)? 0.0 :m_price*m_taxed;
         }
 
 }

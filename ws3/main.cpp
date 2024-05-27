@@ -1,7 +1,8 @@
 #include "Bill.h"
 using namespace seneca;
+/*
 int main() {
-/*    Bill B;
+   Bill B;
     B.init("Quick Shopping", 5);
     B.add("Milk 2%", 4.99, false);
     B.display();
@@ -17,6 +18,7 @@ int main() {
     B.add("Eggs", 5.99, false);
     B.add("Bug Spray", 9.99, true);
     B.display();
-    B.deallocate();*/
+    B.deallocate();
     return 0;
 }
+ */

@@ -6,14 +6,14 @@
 
 #include "Item.h"
 using namespace seneca;
-/*int main() {
+int main() {
     Item A;
     A.setEmpty();
     A.display();
     A.set("Hot dog buns", 4.99, false);
     A.display();
     return 0;
-}*/
+}
 
 
 /*

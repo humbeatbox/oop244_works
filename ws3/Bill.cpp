@@ -8,27 +8,34 @@
 #include <iostream>
 #include <cstring>
 #include "Bill.h"
+
 using namespace std;
 namespace seneca {
     //private
-//    Adds all the taxes of the items using a loop and returns the sum.
+    //Adds all the taxes of the items using a loop and returns the sum.
     double Bill::totalTax()const{
         double ret = 0.0;
+        int i;
+        for ( i = 0; i < m_noOfItems; ++i) {
+            ret += m_items[i].tax();
+        }
         return ret;
     }
     //Adds all the prices of the items using a loop and returns the sum;
     double Bill::totalPrice()const{
         double ret = 0.0;
+        int i;
+        for ( i = 0; i < m_noOfItems; ++i) {
+            ret += m_items[i].price();
+        }
         return ret;
     }
 
     //print title
     void Bill::Title()const{
+        cout << "+--------------------------------------+\n";
+
         /*Prints the title in the following format:
-
-        Prints: "+--------------------------------------+"<NEWLINE>*/
-
-
         //if valid
        /* "| "
         m_title; left-justified in 36 spaces
@@ -81,13 +88,25 @@ namespace seneca {
 
 
     //Sets the Bill object to an empty state by setting m_title to an Empty Cstring and m_items to nullptr
-    void Bill::setEmpty(){}
+    void Bill::setEmpty(){
+        m_title[0] = '\0';
+        m_items = nullptr;
+    }
 
     //Returns true if m_title is not empty and m_items is not null and all the Items in the m_items array are valid.
     bool Bill::isValid()const{
         bool ret = true;
+        //      hint: First check and make sure m_title and m_items are valid. Then loop through all the Items in the m_items array and make sure they are all valid.
+        if (m_title[0] != '\0' && m_items != nullptr){
+            int i;
+            for(i = 0;i< m_noOfItems;i++){
+                if(!m_items[i].isValid()){
+                    ret = false;
+                }
+            }
+            ret = true;
+        }
         return ret;
-//        hint: First check and make sure m_title and m_items are valid. Then loop through all the Items in the m_items array and make sure they are all valid.
     }
 
 
