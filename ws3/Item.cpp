@@ -17,7 +17,16 @@ namespace seneca {
         //for set the m_itemName
         void Item::setName(const char* name){
         //TODO :should deallocate and it's looks weird
-            strncpy(m_itemName,name,20);
+        //    strncpy(m_itemName,name,20);
+	//	m_itemName[20] ='\0';
+        if(name[0]!= '\0'){
+            if (strlen(name) <= 20)
+                strcpy(m_itemName, name);
+            else {
+                strncpy(m_itemName, name, 20);
+                m_itemName[20] = '\0';
+            }       
+        }
         }
     //public:
         //set the Item to Empty State
