@@ -132,7 +132,8 @@ namespace seneca {
         }else{
             m_noOfItems = noOfItems;
             m_itemsAdded = 0;
-            strcpy(m_title,title);
+            strncpy(m_title,title,36);
+            m_title[36] = '\0';
             //m_title = new char[strlen(title)+1];//TODO:set title up to 36 character?
             m_items = new Item[noOfItems];
             int i= 0;
