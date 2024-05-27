@@ -17,7 +17,7 @@ namespace seneca {
         //for set the m_itemName
         void Item::setName(const char* name){
         //TODO :should deallocate and it's looks weird
-            strcpy(m_itemName,name);
+            strncpy(m_itemName,name,20);
         }
     //public:
         //set the Item to Empty State
@@ -52,18 +52,20 @@ namespace seneca {
             if(isValid()){
                 //Milk 2%.............
                 cout <<"| " ;
-                cout.width(20);
+
                 cout.setf( ios::left );
                 cout.fill('.');
+                cout.width(20);
                 cout << m_itemName;
                 cout.unsetf( ios::left );
-                cout.fill(' ');
+
 
                 cout << " | " ;
                 cout.setf( ios::right );
                 cout.setf( ios::fixed );
-                cout.width(7);
                 cout.precision( 2 );
+                cout.fill(' ');
+                cout.width(7);
                 cout << m_price;
                 cout.unsetf( ios::right );
                 cout.unsetf( ios::fixed );

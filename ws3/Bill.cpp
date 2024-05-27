@@ -106,6 +106,7 @@ namespace seneca {
             int i;
             //if one of them is invalid it should be false and break
             for(i = 0;i< m_noOfItems;i++){
+
                 if(!m_items[i].isValid()){
                     ret = false;
                     break;
@@ -152,7 +153,6 @@ namespace seneca {
         bool ret = false;
         if(m_itemsAdded < m_noOfItems){
             m_items[m_itemsAdded].set(item_name,price, taxed);
-//            strcpy(m_items[m_itemsAdded].set(),item_name);
             m_itemsAdded += 1;
             ret = true;
         }
