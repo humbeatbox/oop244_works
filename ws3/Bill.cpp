@@ -2,7 +2,7 @@
 //Seneca email:hchang67@myseneca.ca
 //Seneca Student ID:120049234
 //2024-05-26 Creat this file
-//Done on
+//Done on 2024-05-27
 
 //
 #include <iostream>
@@ -11,7 +11,7 @@
 
 using namespace std;
 namespace seneca {
-    //private
+
     //Adds all the taxes of the items using a loop and returns the sum.
     double Bill::totalTax()const{
         double ret = 0.0;
@@ -21,6 +21,7 @@ namespace seneca {
         }
         return ret;
     }
+
     //Adds all the prices of the items using a loop and returns the sum;
     double Bill::totalPrice()const{
         double ret = 0.0;
@@ -89,7 +90,6 @@ namespace seneca {
         }
 
         cout << "+--------------------------------------+" << endl;
-
     }
 
     //Sets the Bill object to an empty state by setting m_title to an Empty Cstring and m_items to nullptr
@@ -115,17 +115,8 @@ namespace seneca {
         return ret;
     }
 
-
-
-    //public:
-    /*If any of the arguments are invalid, it will set the Bill to an empty state (ie. title is null or noOfItems is zero or less)
-
-    Otherwise, if the incoming arguments are valid:
-
-    init() function will first set the m_noOfItems member variable to the incoming corresponding argument and sets m_itemsAdded to zero.
-    Next, it will copy the Cstring pointed by the title argument into m_title attribute up to 36 characters
-            Then it will dynamically allocate an array of Items pointed by m_items member variable. The length of this array will be m_noOfItems.
-    Make sure all the dynamically allocated Items are set to empty*/
+    //If any of the arguments are invalid set empty
+    //dynamically allocate an array of Items pointed by m_items member variable and the length of this array will be m_noOfItems
     void Bill::init(const char* title, int noOfItems){
         if(title== nullptr || noOfItems ==0){
             setEmpty();
@@ -152,7 +143,6 @@ namespace seneca {
         bool ret = false;
         if(m_itemsAdded < m_noOfItems){
             m_items[m_itemsAdded].set(item_name,price, taxed);
-//            strcpy(m_items[m_itemsAdded].set(),item_name);
             m_itemsAdded += 1;
             ret = true;
         }
@@ -162,8 +152,7 @@ namespace seneca {
 
 
     //This function will first print the title(),
-    // then it will loop through the m_items elements, printing every one of them, and finally prints the footer().
-    // This function can not modify the Bill.
+    //then it will loop through the m_items elements, printing every one of them, and finally prints the footer().
     void Bill::display()const{
         Title();
         int i= 0;
@@ -175,11 +164,6 @@ namespace seneca {
 
     //Deallocates the m_items arrays and sets the pointers to null.
     void Bill::deallocate(){
-        int i=0;
-        //TODO:delete every item in the array
-//        for(i = 0;i<m_noOfItems;i++){
-//            //m_items[i] = nullptr;//.setEmpty();
-//        }
         delete[] m_items;
         m_items = nullptr;
     }
