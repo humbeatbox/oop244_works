@@ -8,4 +8,5 @@ add_executable(ws3 main.cpp
         Item.h
         Bill.cpp
         Bill.h
-        ItemTester.cpp)
+        ItemTester.cpp
+        main_prof.cpp)

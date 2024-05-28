@@ -106,7 +106,6 @@ namespace seneca {
             int i;
             //if one of them is invalid it should be false and break
             for(i = 0;i< m_noOfItems;i++){
-
                 if(!m_items[i].isValid()){
                     ret = false;
                     break;
@@ -135,7 +134,7 @@ namespace seneca {
             m_itemsAdded = 0;
             strncpy(m_title,title,36);
             m_title[36] = '\0';
-            //m_title = new char[strlen(title)+1];//TODO:set title up to 36 character?
+            m_items = nullptr;
             m_items = new Item[noOfItems];
             int i= 0;
             for(i = 0;i<m_noOfItems;i++){
@@ -153,6 +152,7 @@ namespace seneca {
         bool ret = false;
         if(m_itemsAdded < m_noOfItems){
             m_items[m_itemsAdded].set(item_name,price, taxed);
+//            strcpy(m_items[m_itemsAdded].set(),item_name);
             m_itemsAdded += 1;
             ret = true;
         }
@@ -170,7 +170,6 @@ namespace seneca {
         for(i = 0;i<m_noOfItems;i++){
             m_items[i].display();
         }
-
         footer();
     }
 
@@ -178,10 +177,9 @@ namespace seneca {
     void Bill::deallocate(){
         int i=0;
         //TODO:delete every item in the array
-        for(i = 0;i<m_noOfItems;i++){
-            //m_items[i] = nullptr;//.setEmpty();
-        }
-
+//        for(i = 0;i<m_noOfItems;i++){
+//            //m_items[i] = nullptr;//.setEmpty();
+//        }
         delete[] m_items;
         m_items = nullptr;
     }

@@ -1,5 +1,6 @@
 #include "Bill.h"
 using namespace seneca;
+
 int main() {
    Bill B;
     B.init("Quick Shopping", 5);
@@ -20,3 +21,4 @@ int main() {
     B.deallocate();
     return 0;
 }
+
