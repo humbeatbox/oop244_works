@@ -125,7 +125,7 @@ namespace seneca {
             m_itemsAdded = 0;
             strncpy(m_title,title,36);
             m_title[36] = '\0';
-            m_items = nullptr;
+            //m_items = nullptr;
             m_items = new Item[noOfItems];
             int i= 0;
             for(i = 0;i<m_noOfItems;i++){

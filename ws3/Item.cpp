@@ -97,7 +97,7 @@ namespace seneca {
         bool Item::isValid()const{
             bool ret = true;
             //TODO : do something here but no idea everything look weird
-            if (m_price == 0.0 && m_taxed && m_itemName[0] == '\0'){
+            if (m_price == 0.0 && !m_taxed && m_itemName[0] == '\0'){
                 ret = false;
             }
             return ret;
