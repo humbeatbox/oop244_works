@@ -1,0 +1,7 @@
+Because of a lack of practice in C++ coding structure, I spent half an hour trying to find every time we needed to implement the code.
+We need to use the namespace at the beginning and the class name at the front of the function to make sure the compiler can
+recognize which it belongs to. Therefore, we can make a method called the helping function that allows the object to access the variable
+within the limit. For standard function library, we need to very clearly about the function to prevent the run time error.
+I spent a lot of time debugging the init problem because I misunderstood the strncpy function about how to copy the string correctly.
+However, if we copy the string from a string with the number of characters over the target of the number of characters, it 
+will end up with an error(not '\0'). This means the string not a good string and might lead to the run time error.

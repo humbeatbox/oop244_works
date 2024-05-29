@@ -98,10 +98,9 @@ namespace seneca {
         m_items = nullptr;
     }
 
-    //Returns true if m_title is not empty and m_items is not null and all the Items in the m_items array are valid.
+    //safe state check
     bool Bill::isValid()const{
         bool ret = true;
-        //hint: First check and make sure m_title and m_items are valid. Then loop through all the Items in the m_items array and make sure they are all valid.
         if (m_title[0] != '\0' && m_items != nullptr){//means it's true
             int i;
             //if one of them is invalid it should be false and break

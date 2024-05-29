@@ -2,7 +2,7 @@
 //Seneca email:hchang67@myseneca.ca
 //Seneca Student ID:120049234
 //2024-05-26 Creat this file
-//Done on
+//Done on 2024-05-27
 
 //
 
@@ -13,7 +13,7 @@
 using namespace std;
 namespace seneca {
 
-    //private
+
         //for set the m_itemName
         void Item::setName(const char* name){
         //TODO :should deallocate and it's looks weird
@@ -26,10 +26,9 @@ namespace seneca {
             }
         }
         }
-    //public:
+
         //set the Item to Empty State
-        //m_itemName to
-        //etting the m_itemName to a blank string (first character set to null)
+        //Setting the m_itemName to a blank string
         void Item::setEmpty(){
         m_price = 0.0;
         m_taxed = false;
@@ -37,7 +36,7 @@ namespace seneca {
         //TODO::check the init
         }
 
-/*    Sets the m_itemName attribute to the Cstring pointed by the name argument using the setName method
+/*Sets the m_itemName attribute to the Cstring pointed by the name argument using the setName method
  * and sets the m_price and m_taxed attributes to the corresponding arguments.
  * If price is less than 0 or name is null, then the Item is set to a recognizable invalid empty state (safe empty state).*/
         void Item::set(const char* name, double price, bool taxed){
@@ -50,14 +49,8 @@ namespace seneca {
             }
         }
 
-/*    Prints an item in the following format.
-    */
-    //If the Item is valid:
-/*
-            Newline*/
         void Item::display()const{
             if(isValid()){
-                //Milk 2%.............
                 cout <<"| " ;
 
                 cout.setf( ios::left );
@@ -79,11 +72,6 @@ namespace seneca {
 
                 cout << " | " ;
 
-//                if(m_taxed){
-//                    cout << "Yes" ;
-//                }else{
-//                    cout << "No" ;
-//                }
                 (m_taxed)?cout << "Yes":cout << "No ";
                 cout << " |" << endl;
             }else{
@@ -91,12 +79,9 @@ namespace seneca {
             }
         }
 
-        //Returns true if the Item is not set to the empty state (As done in setEmpty function).
-        //This function can not modify its owner.
-
+        //safe state check
         bool Item::isValid()const{
             bool ret = true;
-            //TODO : do something here but no idea everything look weird
             if (m_price == 0.0 && !m_taxed && m_itemName[0] == '\0'){
                 ret = false;
             }
@@ -109,7 +94,7 @@ namespace seneca {
         }
 
         //Returns the product of m_price and 0.13(define a constant double value for this tax rate).
-        // Or it returns 0.0 if the m_taxed is false.
+        //Or it returns 0.0 if the m_taxed is false.
         double Item::tax()const{
             double ret = 0.0;
             if(m_taxed){
