@@ -1,7 +1,107 @@
 Because of a lack of practice in C++ coding structure, I spent half an hour trying to find every time we needed to implement the code.
-We need to use the namespace at the beginning and the class name at the front of the function to make sure the compiler can
+We need to use the namespace at  the string not a good string and might lead to the run time error.
+
+In the beginning and the class name at the front of the function to make sure the compiler can
 recognize which it belongs to. Therefore, we can make a method called the helping function that allows the object to access the variable
 within the limit. For standard function library, we need to very clearly about the function to prevent the run time error.
 I spent a lot of time debugging the init problem because I misunderstood the strncpy function about how to copy the string correctly.
-However, if we copy the string from a string with the number of characters over the target of the number of characters, it 
-will end up with an error(not '\0'). This means the string not a good string and might lead to the run time error.
+However, if we copy the string from a string with the number of characters over the target of the number of characters, it
+will end up with an error(not '\0'). This means
+
+
+1.class is different from struct type is in the default part.
+-Struct default is public
+-class is def default in private
+so we do not need to add the private for those we don't want other accerss,
+but add the public for those we do want.
+class Item {
+        char m_itemName[21];
+        double m_price;
+        bool m_taxed;
+        void setName(const char* name);
+    public:-------------------------------------------here for let other can access
+        void setEmpty();
+        void set(const char* name, double price, bool taxed);
+        void display()const;
+        bool isValid()const;
+        double price()const;
+        double tax()const;
+    };
+
+2.Because the class default the variable as a private so we don't need add other words
+just add it into our class
+class Item {
+        char m_itemName[21];
+        double m_price;
+        bool m_taxed;
+        void setName(const char* name);
+}
+
+3.to privatize data within the class type
+for this situation we use the {} to init the Item in the class that means we can prevent the error
+        char m_itemName[21]{};
+        double m_price{};
+        bool m_taxed{};
+use the {} can make sure every time I New a Item it will instantiate perfectly.
+
+4.We can't access the member variable directly because we use the feature of class set the member variable as private
+so we need the member function to help us access its own variable.
+
+void Item::setName(const char* name){
+        if(name[0]!= '\0'){
+            if (strlen(name) <= 20)
+                strcpy(m_itemName, name);
+            else {
+                strncpy(m_itemName, name, 20);
+                m_itemName[20] = '\0';
+            }
+        }
+}
+in this case, we use the setName function to get the name from outside of Item.
+Then, we use the public member function to change or m_itemName.
+this can make sure the user or other function can follow our limited to change the m_itemName.
+It can also provide us to do some change before it set to the m_itemName.
+
+5.When we want some specific output formal, we can use the cout.width and cout.setf to change it.
+like the following code
+                cout << " | " ;
+//              cout.setf( ios::right );
+//              cout.setf( ios::fixed );
+                cout << right << fixed;
+                cout.precision( 2 );
+                cout.fill(' ');
+                cout.width(7);
+                cout << m_price;
+//              cout.unsetf( ios::right );
+                cout.unsetf( ios::fixed );
+                cout << left;
+
+6.although we init as a safe empty state by {} in the class level, we still need a recognizable number.
+so we have a safe empty state to make sure we know what it is. Therefor we need a member function to help us set everything good.
+in the following code everything is recognizable.
+        void Item::setEmpty(){
+        m_price = 0.0;
+        m_taxed = false;
+        m_itemName[0] = '\0';
+        }
+
+
+7.
+a)In isValid function we can just verify the m_itemName and this make our code cleaner than do a if condition
+because we set a initial {} to m_itemName if nothing inside, the return value is nothing.
+        bool Item::isValid()const{
+            /*bool ret = true;
+            if (m_price == 0.0 && !m_taxed && m_itemName[0] == '\0'){
+                ret = false;
+            }
+            return ret;*/
+            return m_itemName[0];//we just need to verify the name
+        }
+I write a if condition to check everything before I found we don't need to do that.
+
+b)we can use the cout << right << fixed to instead the cout.setf( ios::right ); and cout.setf( ios::fixed );
+c)using the class can prevent we make a mistake because its default is private.
+d)every time init the variable as {}, it's a smart way to make sure it's good to go in every init time.
+e)strncpy just copy the string and do not make a check, so we need to prevent the error ending for the destination string.
+  strncpy(m_itemName, name, 20);
+  m_itemName[20] = '\0';

@@ -10,9 +10,9 @@
 #define SENECA_ITEM_H_
 namespace seneca {
     class Item {
-        char m_itemName[21];
-        double m_price;
-        bool m_taxed;
+        char m_itemName[21]{};
+        double m_price{};
+        bool m_taxed{};
         void setName(const char* name);
     public:
         void setEmpty();

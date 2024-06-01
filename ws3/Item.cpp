@@ -16,7 +16,6 @@ namespace seneca {
 
         //for set the m_itemName
         void Item::setName(const char* name){
-        //TODO :should deallocate and it's looks weird
         if(name[0]!= '\0'){
             if (strlen(name) <= 20)
                 strcpy(m_itemName, name);
@@ -33,7 +32,6 @@ namespace seneca {
         m_price = 0.0;
         m_taxed = false;
         m_itemName[0] = '\0';
-        //TODO::check the init
         }
 
 /*Sets the m_itemName attribute to the Cstring pointed by the name argument using the setName method
@@ -52,7 +50,6 @@ namespace seneca {
         void Item::display()const{
             if(isValid()){
                 cout <<"| " ;
-
                 cout.setf( ios::left );
                 cout.fill('.');
                 cout.width(20);
@@ -61,17 +58,19 @@ namespace seneca {
 
 
                 cout << " | " ;
-                cout.setf( ios::right );
-                cout.setf( ios::fixed );
+//              cout.setf( ios::right );
+//              cout.setf( ios::fixed );
+                cout << right << fixed;
                 cout.precision( 2 );
                 cout.fill(' ');
                 cout.width(7);
                 cout << m_price;
-                cout.unsetf( ios::right );
+//                cout.unsetf( ios::right );
                 cout.unsetf( ios::fixed );
+                cout << left;
+
 
                 cout << " | " ;
-
                 (m_taxed)?cout << "Yes":cout << "No ";
                 cout << " |" << endl;
             }else{
@@ -81,11 +80,12 @@ namespace seneca {
 
         //safe state check
         bool Item::isValid()const{
-            bool ret = true;
+            /*bool ret = true;
             if (m_price == 0.0 && !m_taxed && m_itemName[0] == '\0'){
                 ret = false;
             }
-            return ret;
+            return ret;*/
+            return m_itemName[0];//we just need to verify the name
         }
 
         //Returns the m_price attribute;
@@ -96,12 +96,7 @@ namespace seneca {
         //Returns the product of m_price and 0.13(define a constant double value for this tax rate).
         //Or it returns 0.0 if the m_taxed is false.
         double Item::tax()const{
-            double ret = 0.0;
-            if(m_taxed){
-               ret = m_price*0.13;
-            }
-            //return (!m_taxed)? 0.0 :m_price*m_taxed;
-            return ret;
+            return (m_taxed)? m_price*0.13:0.0;
         }
 
 }
