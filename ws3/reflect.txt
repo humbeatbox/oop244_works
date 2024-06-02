@@ -37,12 +37,11 @@ class Item {
         void setName(const char* name);
 }
 
-3.to privatize data within the class type
-for this situation we use the {} to init the Item in the class that means we can prevent the error
-        char m_itemName[21]{};
-        double m_price{};
-        bool m_taxed{};
-use the {} can make sure every time I New a Item it will instantiate perfectly.
+3.we can use the "new" key word to instantiate a class like
+define a Item type m_items
+    Item* m_items;
+and use the new to create a object an assign to m_items,
+    m_items = new Item[noOfItems];
 
 4.We can't access the member variable directly because we use the feature of class set the member variable as private
 so we need the member function to help us access its own variable.
