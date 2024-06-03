@@ -28,7 +28,7 @@ namespace seneca {
         //If the incoming Cstr is not null and the Canister is usable, it will delete the current content name,
         //allocate memory to the length of Cstr (+1 for null) and copies the Cstr into the newly allocated memory.
         //Otherwise, it will silently do nothing.
-        if (Cstr != nullptr && Cstr[0] != '\0'){//no nullptr nad have something
+        if (Cstr != nullptr && m_usable){//no nullptr nad have something
             delete[] m_contentName;                             //delete m_contentName
             m_contentName = nullptr;                            //set to nullptr for safety guard
             m_contentName = new char[strlen(Cstr)+1];        //allocate a new char
@@ -45,8 +45,8 @@ namespace seneca {
         //Compare the two content names using strcmp from so that it returns true if both names are not null and are identical.
         //Otherwise, it returns false;
 
-        //strcmp(m_contentName,C.m_contentName);//return 0 means equal  not 0 means not equal
-        return (m_contentName[0] != '\0' && C.m_contentName[0] != '\0' && !strcmp(m_contentName, C.m_contentName));
+        return strcmp(m_contentName,C.m_contentName);//return 0 means equal  not 0 means not equal
+        //return (m_contentName[0] != '\0' && C.m_contentName[0] != '\0' && !strcmp(m_contentName, C.m_contentName));
     }
     //--public
     Canister::Canister(){
@@ -68,7 +68,7 @@ namespace seneca {
 //        it will set the content volume to 0.
 //        it will set the content name to the corresponding argument value.
 //        If any of the dimensions have invalid values, it will set the Canister as unusable
-        if(height <= 0 || diameter <=0){
+        if(height < 10 || diameter < 10 || height > 40 || diameter > 30){
             m_usable = false;
         }else{
             m_height = height;
@@ -121,8 +121,15 @@ namespace seneca {
 //        return the reference of the current object at the end.
         this->setContent(srcCan.m_contentName);
         if(srcCan.volume() > (this->capacity()-this->volume())){
-            srcCan.m_contentVolume = this->capacity()-this->volume();
+//            double aa = (this->capacity()-this->volume());
+//            double bb = srcCan.volume();
+//            double ee = srcCan.capacity();
+//            double cc = this->capacity();
+//            double dd = this->volume();
+            srcCan.m_contentVolume -= (this->capacity()-this->volume());
+
             this->m_contentVolume = this->capacity();
+
         }else{
             this->pour(srcCan.volume());
             srcCan.m_contentVolume = 0.0;
@@ -137,6 +144,18 @@ namespace seneca {
 
     }
     std::ostream& Canister::display()const{
+        cout.width(7);
+        cout.setf(ios::fixed);
+        cout.precision(1);
+        cout << capacity() << "cc (" << m_height << "x" << m_diameter << ") Canister";
+        if(!m_usable){
+            cout << " of Unusable content, discard!";
+        }else if(m_contentName != nullptr){
+            cout << " of ";
+            cout.width(7);
+            cout.setf(ios::right);
+            cout <<  m_contentVolume <<"cc   " << m_contentName;
+        }
         return cout;
     }
     double Canister::capacity()const{
@@ -147,7 +166,9 @@ namespace seneca {
 //            ret = PI * (m_height - 0.267) * (m_diameter/2) * (m_diameter/2);
 //        }
         //TODO:make sure I can do this check
-        return (m_height > 0 && m_diameter > 0)?(PI * (m_height - 0.267) * (m_diameter/2) * (m_diameter/2)):0;
+        //return (m_height > 0 && m_diameter > 0)?(PI * (m_height - 0.267) * (m_diameter/2) * (m_diameter/2)):0;
+        //double tt = PI * (m_height - 0.267) * (m_diameter/2) * (m_diameter/2);
+       return PI * (m_height - 0.267) * (m_diameter/2) * (m_diameter/2);
     }
     void Canister::clear(){
 //        Clears an unusable Canister back to an empty Canister by:
