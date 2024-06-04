@@ -1,0 +1,61 @@
+Every time we create an object it will run the constructor automatically,
+and we can overwrite it for us to make sure the value or init happened.
+we can use the no argument constructor(it also called default constructor)
+if we create the object without any argument like this
+    Canister::Canister(){
+        //Sets the attributes to their default values
+        setToDefault();
+    }
+we use the setToDefault() function helping us to set everything as what we want.
+
+
+Besides, we can set our custom constructors with different number of arguments
+that means everytime people create the new object can pass different number of argument and get a different
+init or starting status. In this workshop, we create two others different custom constructors like
+- Function with one argument -> Canister(const char* contentName)
+- Function with three argument ->Canister(double height, double diameter,const char* contentName)
+so that we can pass a name, height or diameter automatically in the beginning
+it can make our code more clear and readable.
+
+
+DMA is a very powerful way help us to allocate the memory. However, it's possible lead to memory leak.
+Using the destructor can make sure we will delete the dynamic allocated memory every time and make it safe.
+Like the belonging code, we can use delete[] in destructor to make sure every time the object been killed it will be deleted instead
+delete it by our owns might make mistake or forget it.
+    Canister::~Canister(){
+        delete[] m_contentName;
+        m_contentName = nullptr;
+    }
+
+In the C++, "this" in the object means the current object, and we can use this to identify who I refer to.
+This let us use our own method and identify what I refer to.
+For example,I use the "this" to indicate my object and use my method volume and capacity to check
+who many volume do I have.
+In addition, I can also use "*this" to return the object.("this" is a pointer of current object, so we use the * to get the reference of the current object)
+And then we can keep concat others method to calling them behind this current method, like it in the main"C[5].setContent("Milk").pour(500);".
+(After call the setContent("Milk"), we can keep calling the pour("Milk") function because in setContent() function we return the *this)
+Function 1
+    Canister& Canister::pour(Canister& srcCan){
+        this->setContent(srcCan.m_contentName);
+        if(srcCan.volume() > (this->capacity()-this->volume())){
+            srcCan.m_contentVolume -= (this->capacity()-this->volume());
+            this->m_contentVolume = this->capacity();
+        }else{
+            this->pour(srcCan.volume());
+            srcCan.m_contentVolume = 0.0;
+        }
+        return *this;
+    }
+Function 2
+    Canister& Canister::setContent(const char* contentName){
+        if(contentName == nullptr){
+            m_usable = false;
+        }else if(isEmpty()){
+            setName(contentName);
+        }else if(hasSameContent(contentName)){
+            m_usable = false;
+        }
+        return *this;
+
+
+describe to your instructor what you have learned in completing this workshop

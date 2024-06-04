@@ -121,15 +121,8 @@ namespace seneca {
 //        return the reference of the current object at the end.
         this->setContent(srcCan.m_contentName);
         if(srcCan.volume() > (this->capacity()-this->volume())){
-//            double aa = (this->capacity()-this->volume());
-//            double bb = srcCan.volume();
-//            double ee = srcCan.capacity();
-//            double cc = this->capacity();
-//            double dd = this->volume();
             srcCan.m_contentVolume -= (this->capacity()-this->volume());
-
             this->m_contentVolume = this->capacity();
-
         }else{
             this->pour(srcCan.volume());
             srcCan.m_contentVolume = 0.0;
@@ -138,9 +131,8 @@ namespace seneca {
     }
     double Canister::volume()const{
         //returns the content volume attribute
-        //return m_contentVolume;
-        //TODO:check do i need this
-        return (!isEmpty())?m_contentVolume:0.0;
+        return m_contentVolume;
+        //return (!isEmpty())?m_contentVolume:0.0;
 
     }
     std::ostream& Canister::display()const{
@@ -159,15 +151,6 @@ namespace seneca {
         return cout;
     }
     double Canister::capacity()const{
-        //returns the capacity as stated in Calculating the capacity
-        //double ret = 0.0;
-        //Capacity = PI x (H - 0.267) x (D/2) x (D/2)
-//        if(m_height > 0 && m_diameter > 0){
-//            ret = PI * (m_height - 0.267) * (m_diameter/2) * (m_diameter/2);
-//        }
-        //TODO:make sure I can do this check
-        //return (m_height > 0 && m_diameter > 0)?(PI * (m_height - 0.267) * (m_diameter/2) * (m_diameter/2)):0;
-        //double tt = PI * (m_height - 0.267) * (m_diameter/2) * (m_diameter/2);
        return PI * (m_height - 0.267) * (m_diameter/2) * (m_diameter/2);
     }
     void Canister::clear(){
