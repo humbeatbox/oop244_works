@@ -57,5 +57,18 @@ Function 2
         }
         return *this;
 
+In main function we can see we don't need to use another word to cascading the following method,
+we just need to call the method directly behind the method that return "*this".
+And it's easy for user to cascade the other method in one sentence.
 
-describe to your instructor what you have learned in completing this workshop
+We don't need to declare the name of the argument in the header file.
+Like this: the code in the header file -> Canister& pour(Canister&);
+Instead, we can give the actual name in the cpp like the following:
+Canister& Canister::pour(Canister& srcCan){//I add the name Can
+
+In addition, in the lab time we are talking about init every variable in declaring time.
+    char* m_contentName{};
+    double m_diameter{};
+    double m_height{};
+    double m_contentVolume{};
+    bool m_usable{};

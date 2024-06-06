@@ -52,7 +52,6 @@ namespace seneca {
     Canister::Canister(){
         //Sets the attributes to their default values
         setToDefault();
-
     }
     Canister::Canister(const char* contentName){
         //Sets the attributes to their default values (note: reuse code)
@@ -78,7 +77,6 @@ namespace seneca {
         }
     }
     Canister::~Canister(){
-
         delete[] m_contentName;
         m_contentName = nullptr;
         //cos i new a new space in setName function
@@ -113,7 +111,6 @@ namespace seneca {
     Canister& Canister::pour(Canister& srcCan){//I add the name Can
         //src to this
 //        Pours the content of the Canister argument into the current Canister following the Specs stated at the top
-
 //        Set the content name to the Canister argument using setContent().
 //        if the srcCan volume()他杯子裡的現有液體 is greater than 大於the capacity() minus the volume()（我的剩餘容量）(我的容器大小減掉我已經裝的現有液體量)
 //        Reduce the content volume of srcCan減少他的現有液體容量 by capacity() minus volume() 減 我的剩餘容量的and then set the content volume to capacity()我的液體量等於我的容量
