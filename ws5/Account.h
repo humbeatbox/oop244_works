@@ -27,14 +27,14 @@ namespace seneca {
         bool operator ~()const;
         //Binary member operators
         Account& operator =(int);
-        Account& operator =(const Account&);
+        Account& operator =(Account&);
         Account& operator +=(double);
         Account& operator -=(double);
-        Account& operator <<(const Account&);
-        Account& operator >>(const Account&);
-        Account& operator +(const Account&);
+        Account& operator <<(Account&);
+        Account& operator >>(Account&);
+//        Account& operator +(const Account&);
     };
     double operator +(const Account&, const Account&);
-    double& operator +=(double& ,const Account&);
+    double operator +=(double,const Account&);
 }
 #endif //WS5_ACCOUNT_H

@@ -91,6 +91,11 @@ int main() {
     value += double(mixed[6]);
     cout << value << endl;
     cout << "Setting the account number of account#8 to 88888: "<< endl;
+    //below error
+    cout << "================================================"<< endl;
+    displayAccounts(mixed, 10);
+    cout << "================================================"<< endl;
+    //
     cout << "before: " << endl;
     displayAccount(mixed[7]);
     cout << "After:  " << endl;
