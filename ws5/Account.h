@@ -35,6 +35,6 @@ namespace seneca {
 //        Account& operator +(const Account&);
     };
     double operator +(const Account&, const Account&);
-    double operator +=(double,const Account&);
+    double operator +=(double&,const Account&);
 }
 #endif //WS5_ACCOUNT_H

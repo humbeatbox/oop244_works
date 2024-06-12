@@ -68,40 +68,59 @@ namespace seneca {
     }
 
     Account& Account::operator=(int input) {
-        if(input < 10000 || input > 99999){
+        if(m_number==0.0){//new account
+            if(input < 10000 || input > 99999){
+                //m_number = -1;
+                setEmpty();
+            }else{
+                m_number = input;
+            }
+        }
+
+        /*if(input < 10000 || input > 99999){
             m_number = -1;
         }
         if(m_number){
             m_number = input;
-        }
+        }*/
         return *this;
     }
     Account& Account::operator =(Account& right){
 /*        if(origin.m_number < 10000 || origin.m_number > 99999){
             m_number = -1;
         }*/
-        if(m_number ==0 && bool(right)){//this is new and origin is valid
-            //right number set to left
-            m_number = right.m_number;
-            //right set to not new and can't be use
-            right.m_number = -1;
-            //right.setEmpty();
-            //switch the balance
-            m_balance = right.m_balance;
-            right.m_balance = 0;
+//        if(m_number ==0 && bool(right)){//this is new and origin is valid
+//            //right number set to left
+//            m_number = right.m_number;
+//            //right set to not new and can't be use
+//            right.m_number = -1;
+//            //right.setEmpty();
+//            //switch the balance
+//            m_balance = right.m_balance;
+//            right.m_balance = 0;
+//        }
+        if(bool(right)&& this->m_number==0 && this->m_balance==0){
+            this->m_number = right.m_number;
+            this->m_balance = right.m_balance;
+            right.m_number = 0;
+            right.m_balance = 0.0;
         }
+
+
+
+
         return *this;
     }
 
     Account& Account::operator+=(double amount){
-        if(amount >= 0 && bool(this)){//amount not negative and this account is valid
+        if(amount >= 0 && bool(*this)){//amount not negative and this account is valid
             m_balance+=amount;
         }
         return *this;
     }
 
     Account& Account::operator-=(double amount) {
-        if(amount >= 0 && bool(this)){//amount not negative and this account is valid
+        if(amount >= 0 && bool(*this)){//amount not negative and this account is valid
             if(m_balance>amount){//have enough money
                 m_balance -= amount;
             }
@@ -114,7 +133,7 @@ namespace seneca {
     //the balance of the left account will be the sum of both and the balance of the right account will be zero.
     Account& Account::operator<<(Account& right) {
         //two account are valid and right account is not itself
-        if(bool(this) && bool(right) && this->m_number!=right.m_number) {
+        if(bool(*this) && bool(right) && this->m_number!=right.m_number) {
             this->m_balance += right.m_balance;
             right.m_balance = 0;
         }
@@ -123,7 +142,7 @@ namespace seneca {
     //the balance of the right account will be the sum of both and the balance of the left account will be zero.
     Account& Account::operator>>(Account& right) {
         //two account are valid and right account is not itself
-        if(bool(this) && bool(right) && this->m_number!=right.m_number) {
+        if(bool(*this) && bool(right) && this->m_number!=right.m_number) {
             right.m_balance += this->m_balance;
             this->m_balance = 0;
         }
@@ -143,12 +162,11 @@ namespace seneca {
 //        return 0.0;
         return (bool(left)&& bool(right))?(double(left) + double(right)):0.0;
     }
-    double operator+=(double dbl, const Account& right) {
-        double ret = 0.0;
+    double operator+=(double& left, const Account& right) {
         if(bool(right)){
-            ret =double(right) + dbl;
+            left +=double(right);
         }
-        return ret;
+        return left;
     }
 
 }

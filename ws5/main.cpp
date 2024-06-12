@@ -91,11 +91,6 @@ int main() {
     value += double(mixed[6]);
     cout << value << endl;
     cout << "Setting the account number of account#8 to 88888: "<< endl;
-    //below error
-    cout << "================================================"<< endl;
-    displayAccounts(mixed, 10);
-    cout << "================================================"<< endl;
-    //
     cout << "before: " << endl;
     displayAccount(mixed[7]);
     cout << "After:  " << endl;
@@ -124,8 +119,6 @@ int main() {
     mixed[7] = mixed[6];
     cout << "After: " << endl;
     displayAccounts(&mixed[6], 2);
-
-
     displayRawAccountNumber(mixed, 10);
     displayRawBalances(mixed, 10);
     cout << "Total of " << countNewAccounts(mixed, 10) << " new accounts" << endl;
