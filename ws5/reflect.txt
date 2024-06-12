@@ -1,0 +1,14 @@
+when i need to put the const
+and how is the different to put the const in where
+const int* ptr
+int* const ptr
+const int* const ptr
+default assignment in member function (member type) (1 parameter)
+clear assignment (2 parameter)
+
+
+
+
+explicit prevent the implicit transfer formal
+explicit operator double() const;
+(value = (double)mixed[4] + (double)mixed[6])
