@@ -2,9 +2,7 @@
 //Seneca email:hchang67@myseneca.ca
 //Seneca Student ID:120049234
 //2024-06-10 Creat this file
-//Done on
-
-//
+//Done on 6-23
 
 #ifndef WS5_ACCOUNT_H
 #define WS5_ACCOUNT_H
@@ -32,7 +30,6 @@ namespace seneca {
         Account& operator -=(double);
         Account& operator <<(Account&);
         Account& operator >>(Account&);
-//        Account& operator +(const Account&);
     };
     double operator +(const Account&, const Account&);
     double operator +=(double&,const Account&);

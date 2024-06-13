@@ -2,7 +2,7 @@
 //Seneca email:hchang67@myseneca.ca
 //Seneca Student ID:120049234
 //2024-06-10 Creat this file
-//Done on
+//Done on 6-23
 
 //
 
@@ -70,45 +70,20 @@ namespace seneca {
     Account& Account::operator=(int input) {
         if(m_number==0.0){//new account
             if(input < 10000 || input > 99999){
-                //m_number = -1;
                 setEmpty();
             }else{
                 m_number = input;
             }
         }
-
-        /*if(input < 10000 || input > 99999){
-            m_number = -1;
-        }
-        if(m_number){
-            m_number = input;
-        }*/
         return *this;
     }
     Account& Account::operator =(Account& right){
-/*        if(origin.m_number < 10000 || origin.m_number > 99999){
-            m_number = -1;
-        }*/
-//        if(m_number ==0 && bool(right)){//this is new and origin is valid
-//            //right number set to left
-//            m_number = right.m_number;
-//            //right set to not new and can't be use
-//            right.m_number = -1;
-//            //right.setEmpty();
-//            //switch the balance
-//            m_balance = right.m_balance;
-//            right.m_balance = 0;
-//        }
         if(bool(right)&& this->m_number==0 && this->m_balance==0){
             this->m_number = right.m_number;
             this->m_balance = right.m_balance;
             right.m_number = 0;
             right.m_balance = 0.0;
         }
-
-
-
-
         return *this;
     }
 
@@ -125,9 +100,6 @@ namespace seneca {
                 m_balance -= amount;
             }
         }
-//        if(m_balance>amount){//have enough money
-//            m_balance -= amount;
-//        }
         return *this;
     }
     //the balance of the left account will be the sum of both and the balance of the right account will be zero.
@@ -149,24 +121,12 @@ namespace seneca {
         return *this;
     }
 
-//    Account& Account::operator+(const Account& right) {
-//
-//        return *this;
-//    }
-
     double operator+(const Account& left, const Account& right) {
-//        double ret = 0.0;
-//        if ((bool(left)&& bool(right))){
-//            ret = double(left) + double(right);
-//        }
-//        return 0.0;
         return (bool(left)&& bool(right))?(double(left) + double(right)):0.0;
     }
+
     double operator+=(double& left, const Account& right) {
-        if(bool(right)){
-            left +=double(right);
-        }
-        return left;
+        return (bool(right))?left +=double(right):left;
     }
 
 }
