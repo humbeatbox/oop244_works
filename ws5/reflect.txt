@@ -1,14 +1,89 @@
-when i need to put the const
-and how is the different to put the const in where
-const int* ptr
-int* const ptr
-const int* const ptr
-default assignment in member function (member type) (1 parameter)
-clear assignment (2 parameter)
+
+1.In this workshop we are using the overload to create own personal binary member operator like bellow:
+Account& operator =(Account&);
+Account& operator +=(double);
+
+and we use also use this in the main function:
+mixed[3] += -50.55
+to allow us to add or assign the coming item.
+
+2.In the conversion operator part, we create 3 type of conversion
+        operator bool() const;
+        operator int() const;
+        operator double() const;
+we implement our personal binary operator to help us to convert to the type that we want
+and use it in the main like the bellow:
+cout << (value = mixed[4] + mixed[6]) << ", ";
+double(mixed[4])
+and I learned how to use the explict here, if we change the declaration on conversion code to
+like this :"explicit operator double() const;"
+I need to change the code to
+cout << (value = double(mixed[4]) + double(mixed[6])) << ", ";
+because explicit do not allow our to do the "implicit convert" we very clearly to write down what we want to convert to.
+
+
+3.The unary operator ~ we overload it to return a bool type like bellow:
+    bool Account::operator~() const{
+        return (m_number == 0);
+    }
+and we can get a bool return type.And we use this in the main and our code
+In main:
+        sum += !acc[i] && !~acc[i];
+it helps us to check the acc[i]'s m_number and return a boolean and transfer to int type for count the sum.
+In our code:
+if(~*this){//set or not
+            if(input < 10000 || input > 99999){
+                setEmpty();
+            }else{
+                m_number = input;
+            }
+        }
+here to help me check the account number is set or not.
 
 
 
+4.define and create helper binary operator between classes
+As we know helper function is not a member function,so we create it outside the class.
+like this:
+double operator+(const Account& left, const Account& right) {
+    return (bool(left)&& bool(right))?(double(left) + double(right)):0.0;
+}
+and we use it to add the two account type object together and return a double.
 
-explicit prevent the implicit transfer formal
-explicit operator double() const;
-(value = (double)mixed[4] + (double)mixed[6])
+5.In addition, we create a helper operator use the primitive type and a account type.
+Like this:
+    double operator+=(double& left, const Account& right) {
+        return (bool(right))?left +=double(right):left;
+    }
+Because we need to change the original value, we need to get the reference of original variable"double& left".
+
+6.Furthermore,in the case ++ operator (add one)
+If we just use the Prefix operator, we don't need the parameter in the function,
+like Account ++() and do it like "++account",
+But if we want to implement the Postfix Operator, we need the parameter to let program know want kind of type we need
+like Account ++(int) and do it like "account++",
+it also means there are two different overload with no argument and with one argument.
+
+
+7.In the class, our member operator overload set itself as the first default parameter,
+Declaration:
+Account& operator +=(double);
+Implementation:
+Account& Account::operator+=(double amount){
+    if(amount >= 0 && *this){//amount not negative and this account is valid
+        m_balance+=amount;
+    }
+    return *this;
+}
+it has default parameter "this" and only need to declare the second one "double"
+
+If not in the class, we need to declare the both, because compiler need to know who is the first parameter.
+Declaration:
+double operator +(const Account&, const Account&);
+Implementation:
+double operator+=(double& left, const Account& right) {
+    return (right)?left +=double(right):left;
+}
+
+
+

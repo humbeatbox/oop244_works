@@ -23,6 +23,7 @@ namespace seneca {
         operator double() const;
         //Unary member operator
         bool operator ~()const;
+
         //Binary member operators
         Account& operator =(int);
         Account& operator =(Account&);
