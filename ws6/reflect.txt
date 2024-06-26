@@ -9,3 +9,5 @@ use the C++ string class to extract an unknown number of characters from the inp
 
 strcat concat the cstring to the destination.
 getline extract '\n'
+
+using the initialize list
