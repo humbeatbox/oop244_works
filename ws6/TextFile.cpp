@@ -51,12 +51,13 @@ namespace seneca {
     //In the end, it will increase m_noOfLines by one, just in case, the last line does not have a new line at the end.
     //If the number of lines is zero, it will delete the m_filename and set it to nullptr. (Setting the TextFile to a safe empty state)
     void TextFile::setNoOfLines(){
-        ifstream f_file(m_filename);
-        if(f_file.is_open()){
+        ifstream fin;
+        fin.open(m_filename);
+        if(fin.is_open()){
             m_noOfLines = 0;//need the init?
             string line;//tmp string
-            if(getline(f_file, line)) {// not zero line
-                while (getline(f_file, line)) {//when return is true
+            if(getline(fin, line)) {// not zero line
+                while (getline(fin, line)) {//when return is true
                     m_noOfLines++;
                 }
                 //TODO:check the getline() function is something wrong use the getchar
@@ -74,12 +75,30 @@ namespace seneca {
     }
     void TextFile::loadText(){
         if(m_filename){
-            loadText()
+            m_textLines = new Line[m_noOfLines];
+            //TODO:Make sure m_textLine is deleted before this to prevent memory leak.
+
         }
     }
     void TextFile::saveAs(const char *fileName)const{
+        ofstream f(fileName);
+        if(f.is_open()){
+            for (auto i = 0; i < m_noOfLines; ++i) {
+                f << m_textLines[i] << endl;
+            }
+        }
 
     }
+    TextFile::TextFile(unsigned pageSize){
+
+    }
+    TextFile::TextFile(const char* filename, unsigned pageSize){
+
+    }
+    TextFile::TextFile(const TextFile&){
+
+    }
+
 
     TextFile& TextFile::operator=(const TextFile&){
         return *this;
@@ -94,16 +113,19 @@ namespace seneca {
         return istr;
     }
     TextFile::operator bool()const{
-
+        return *this;
     }
     unsigned TextFile::lines()const{
-
+        unsigned ret;
+        return ret;
     }
     const char* TextFile::name()const{
-
+        char* ret;
+        return ret;
     }
     const char* TextFile::operator[](unsigned index)const{
-
+        char* ret;
+        return ret;
     }
 
 }
