@@ -28,8 +28,10 @@ namespace seneca {
 
     //deletes the m_textLines dynamic array and sets is to nullptr deletes the m_filename dynamic Cstring and sets is to nullptr sets m_noOfLines attribute to zero.
     void TextFile::setEmpty(){
-        delete[] m_textLines;
-        m_textLines = nullptr;
+        //if(m_textLines){
+//        delete[] m_textLines;
+//        m_textLines = nullptr;
+        //}
         delete[] m_filename;
         m_filename = nullptr;
         m_noOfLines = 0;
@@ -75,11 +77,21 @@ namespace seneca {
 
     }
     void TextFile::loadText(){
+
         if(m_filename){
             m_textLines = new Line[m_noOfLines];
             //TODO:Make sure m_textLine is deleted before this to prevent memory leak.
+            ifstream fin;
+            fin.open(m_filename);
+            if(fin.is_open()){
+               for (int i = 0; i < m_noOfLines; ++i) {//each line
+                    //m_textLines[i] =
+                }
+
+            }
 
         }
+
     }
     //Saves the content of the TextFile under a new name.
     void TextFile::saveAs(const char *fileName)const{
@@ -93,10 +105,10 @@ namespace seneca {
     }
     TextFile::TextFile(unsigned pageSize):m_pageSize(pageSize){
 //        m_pageSize = pageSize;
-        setEmpty();
-//        m_filename = nullptr;
-//        m_noOfLines = 0;
-//        m_textLines = nullptr;
+//        setEmpty();
+        m_filename = nullptr;
+        m_noOfLines = 0;
+        m_textLines = nullptr;
     }
     //Then if the filename is not null, it will set the filename, set the number of Lines and load the Text (using the corresponding private methods.)
     TextFile::TextFile(const char* filename, unsigned pageSize):m_pageSize(pageSize){
@@ -106,10 +118,10 @@ namespace seneca {
             setNoOfLines();
             loadText();
         }else{
-            setEmpty();
-//            m_filename = nullptr;
-//            m_noOfLines = 0;
-//            m_textLines = nullptr;
+//            setEmpty();
+            m_filename = nullptr;
+            m_noOfLines = 0;
+            m_textLines = nullptr;
         }
     }
 /*  Initializes the m_pageSize attribute using the m_pageSize of the incoming TextFile object and all the other attributes to nullptr and zero.
@@ -166,10 +178,12 @@ namespace seneca {
     }
     //Receives a filename from istr to set the file name of the TextFile. Then sets the number of lines and loads the Text. When done it will return the istr;
     std::istream& TextFile::getFile(std::istream& istr){
-        char* myName = nullptr;
-        cin >> myName;
+        //char* myName = nullptr;
+        string str;
         //TODO:check can i use like this?
-        setFilename(myName);
+//        getline(cin,str);
+        istr>>str;
+        setFilename(str.c_str());
         setNoOfLines();
         loadText();
         return istr;
@@ -197,5 +211,4 @@ namespace seneca {
     std::istream& operator>>(std::istream& istr, TextFile& text){
         return text.getFile(istr);
     }
-
 }
