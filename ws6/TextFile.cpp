@@ -21,19 +21,24 @@ namespace seneca {
         strcpy(m_value, lineValue);
         return *this;
     }
+
     Line::~Line() {
         delete[] m_value;
     }
     //the below is for TextFile
 
-    //deletes the m_textLines dynamic array and sets is to nullptr deletes the m_filename dynamic Cstring and sets is to nullptr sets m_noOfLines attribute to zero.
+    //deletes the m_textLines dynamic array and sets is to nullptr deletes the m_filename dynamic Cstring
+    //and sets is to nullptr sets m_noOfLines attribute to zero.
     void TextFile::setEmpty(){
-        //if(m_textLines){
-//        delete[] m_textLines;
-//        m_textLines = nullptr;
-        //}
-        delete[] m_filename;
-        m_filename = nullptr;
+        if(m_textLines != nullptr){
+        delete[] m_textLines;
+        m_textLines = nullptr;
+        }
+
+        if(m_filename != nullptr) {
+            delete[] m_filename;
+            m_filename = nullptr;
+        }
         m_noOfLines = 0;
     }
     //If the isCopy argument is false, dynamically allocates a Cstring in m_filename and copies the content of the fname argument into it.
@@ -64,29 +69,42 @@ namespace seneca {
                     m_noOfLines++;
                 }
             }
+            fin.close();
             m_noOfLines++;//in case last line no \n
             if(m_noOfLines == 0){
-                delete[] m_filename;
-                m_filename = nullptr;
+                setEmpty();
             }
         }
-        /*else{
-            delete[] m_filename;
-            m_filename = nullptr;
-        }*/
-
     }
     void TextFile::loadText(){
 
         if(m_filename){
+            //Loads the text file m_filename into the dynamic array of Lines pointed by m_textLines :
+            //If the m_filename is not null (TextFile is not in a safe empty state ),
+            //loadText() will dynamically allocate an array of Lines pointed by m_textLines with the size kept in m_noOfLine
+            //delete[] m_textLines;
             m_textLines = new Line[m_noOfLines];
             //TODO:Make sure m_textLine is deleted before this to prevent memory leak.
+
+            //Create a local instance of ifstream using the file name m_filename to read the lines of the text file.
             ifstream fin;
             fin.open(m_filename);
+
+            //Since the length of each line is unknown, read the line using a local C++ string object and the getline helper function.
+            //(note: this is the HELPER getline function and not a method of istream).
+
             if(fin.is_open()){
-               for (int i = 0; i < m_noOfLines; ++i) {//each line
-                    //m_textLines[i] =
+//               for (int i = 0; i < m_noOfLines; ++i) {//each line
+//                    m_textLines[i] = getline(fin,name);
+//                }
+            //TODO:check this
+                string str;
+                int lineNo = 0;
+                while (getline(fin, str)) {
+                    m_textLines[lineNo++] = str.c_str();
                 }
+                m_noOfLines = lineNo + 1;//in case
+                fin.close();
 
             }
 
@@ -95,11 +113,13 @@ namespace seneca {
     }
     //Saves the content of the TextFile under a new name.
     void TextFile::saveAs(const char *fileName)const{
+
         ofstream f(fileName);
         if(f.is_open()){
             for (auto i = 0; i < m_noOfLines; ++i) {
                 f << m_textLines[i] << endl;
             }
+            f.close();
         }
 
     }
@@ -124,13 +144,16 @@ namespace seneca {
             m_textLines = nullptr;
         }
     }
-/*  Initializes the m_pageSize attribute using the m_pageSize of the incoming TextFile object and all the other attributes to nullptr and zero.
+/*  Initializes the m_pageSize attribute using the m_pageSize of the incoming TextFile object
+ * and all the other attributes to nullptr and zero.
     If the incoming Text object is in a valid State, performs the following tasks to copy the textfile and the content safely:
     Sets the file-name to the name of the incoming TextFile object (isCopy set to true) See setFilename()
     Saves the content of the incoming TextFile under the file name of the current TextFile
     set the number of lines loads the Text*/
     TextFile::TextFile(const TextFile& right):m_pageSize(right.m_pageSize){
 //        m_pageSize = right.m_pageSize;
+        setEmpty();
+
         if(right.m_filename){
             //TODO:check my step and function call is correct or not
             setFilename(right.m_filename,true);
@@ -138,20 +161,21 @@ namespace seneca {
             right.saveAs(m_filename);
             setNoOfLines();
             loadText();
-        }else{
-            setEmpty();
+        }
+//        else{
+//            setEmpty();
 //            m_filename = nullptr;
 //            m_noOfLines = 0;
 //            m_textLines = nullptr;
-        }
+//        }
+
+
     }
 
     //If the current and the incoming TextFiles are valid
     //it will first delete the current text and then overwrites the current file and data by the content of the incoming TextFile.
     TextFile& TextFile::operator=(const TextFile& src){
         if(this != &src && *this && src){//self-assignment check and not empty state
-            //TODO:check do i need to check the state?
-            delete[] m_textLines;
             setEmpty();
             src.saveAs(m_filename);
             setNoOfLines();
@@ -167,23 +191,27 @@ namespace seneca {
         if(m_filename) {
             cout << m_filename << "\n==========";
             for (int i = 0; i < m_noOfLines; ++i) {
-                cout << m_textLines[i] << endl;
+                cout << m_textLines[i].m_value << endl;
                 if (i == m_pageSize) {//TODO:check the logic here for next page
                     cout << "Hit ENTER to continue...\n";
+                    cin.get();
                     cin.ignore();//TODO: check if no more instruction
                 }
             }
         }
         return ostr;
     }
-    //Receives a filename from istr to set the file name of the TextFile. Then sets the number of lines and loads the Text. When done it will return the istr;
+    //Receives a filename from istr to set the file name of the TextFile.
+    //Then sets the number of lines and loads the Text.
+    //When done it will return the istr;
     std::istream& TextFile::getFile(std::istream& istr){
         //char* myName = nullptr;
-        string str;
+        //string str;
+        char str[100];
         //TODO:check can i use like this?
-//        getline(cin,str);
         istr>>str;
-        setFilename(str.c_str());
+        //setFilename(str.c_str());
+        setFilename(str);
         setNoOfLines();
         loadText();
         return istr;
