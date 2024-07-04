@@ -220,7 +220,7 @@ namespace seneca {
             for (unsigned i = 1; i < lines(); i++) {
                 ostr << m_textLines[i-1].m_value << endl;
                 if (i % m_pageSize ==0) {
-                    ostr << "Hit ENTER to continue...";
+                    ostr << "Hit ENTER to continue..." << endl;
                     char ch = ' ';
                     while(ch != '\n') {
                         ch = getchar();
