@@ -215,21 +215,17 @@ namespace seneca {
     }
     std::ostream& TextFile::view(std::ostream& ostr)const{
         if(m_filename) {
-            cout << m_filename << "\n==========";
-            ostr << endl;
+            cout << m_filename << "\n==========\n";
             for (unsigned i = 1; i < lines(); i++) {
-                ostr << m_textLines[i-1].m_value << endl;
+                cout << m_textLines[i-1].m_value << endl;
                 if (i % m_pageSize ==0) {
-                    ostr << "Hit ENTER to continue..." << endl;
+                    cout << "Hit ENTER to continue..." << endl;
                     char ch = ' ';
                     while(ch != '\n') {
                         ch = getchar();
                     }
-                    char* str{};
-                    scanf("%[^\n]", str);
-//                    // Input enter
-//                    char cstr[3];
-//                    scanf("%[^\n]", cstr);
+                    char cstr[3];
+                    scanf("%[^\n]", cstr);
                 }
             }
         }
