@@ -124,24 +124,18 @@ namespace seneca {
 
     }
     TextFile::TextFile(unsigned pageSize):m_pageSize(pageSize){
-//        m_pageSize = pageSize;
-//        setEmpty();
-        m_filename = nullptr;
-        m_noOfLines = 0;
-        m_textLines = nullptr;
+        m_pageSize = pageSize;
+        setEmpty();
     }
     //Then if the filename is not null, it will set the filename, set the number of Lines and load the Text (using the corresponding private methods.)
     TextFile::TextFile(const char* filename, unsigned pageSize):m_pageSize(pageSize){
 //        m_pageSize = pageSize;
-        if(m_filename){
+        if(filename != nullptr && filename[0] != '\0'){
             setFilename(filename);
             setNoOfLines();
             loadText();
         }else{
-//            setEmpty();
-            m_filename = nullptr;
-            m_noOfLines = 0;
-            m_textLines = nullptr;
+            setEmpty();
         }
     }
 /*  Initializes the m_pageSize attribute using the m_pageSize of the incoming TextFile object
@@ -152,8 +146,6 @@ namespace seneca {
     set the number of lines loads the Text*/
     TextFile::TextFile(const TextFile& right):m_pageSize(right.m_pageSize){
 //        m_pageSize = right.m_pageSize;
-        setEmpty();
-
         if(right.m_filename){
             //TODO:check my step and function call is correct or not
             setFilename(right.m_filename,true);
@@ -161,15 +153,9 @@ namespace seneca {
             right.saveAs(m_filename);
             setNoOfLines();
             loadText();
+        }else{
+            setEmpty();
         }
-//        else{
-//            setEmpty();
-//            m_filename = nullptr;
-//            m_noOfLines = 0;
-//            m_textLines = nullptr;
-//        }
-
-
     }
 
     //If the current and the incoming TextFiles are valid
@@ -189,13 +175,23 @@ namespace seneca {
     }
     std::ostream& TextFile::view(std::ostream& ostr)const{
         if(m_filename) {
-            cout << m_filename << "\n==========";
-            for (int i = 0; i < m_noOfLines; ++i) {
-                cout << m_textLines[i].m_value << endl;
-                if (i == m_pageSize) {//TODO:check the logic here for next page
-                    cout << "Hit ENTER to continue...\n";
-                    cin.get();
-                    cin.ignore();//TODO: check if no more instruction
+            cout << m_filename << "\n==========\n";
+            for (int i = 1; i < m_noOfLines; i++) {
+                cout << m_textLines[i-1].m_value << endl;
+                if (i % m_pageSize ==0) {//TODO:check the logic here for next page
+                    //TODO: check if no more instruction
+                        //char ch = ' ';
+                        cout << "Hit ENTER to continue...\n";
+                        cin.get();
+                        cin.ignore();
+                    //char ch = 'x';
+//                    while(ch != '\n') {
+//                        ch = getchar();
+//                    }
+//
+//                    // Input enter
+//                    char cstr[3];
+//                    scanf("%[^\n]", cstr);
                 }
             }
         }
