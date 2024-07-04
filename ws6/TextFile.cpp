@@ -82,7 +82,10 @@ namespace seneca {
         }
     }
     void TextFile::loadText(){
-
+        if(m_textLines != nullptr){
+            delete[] m_textLines;
+            m_textLines = nullptr;
+        }
         if(m_filename){
             //Loads the text file m_filename into the dynamic array of Lines pointed by m_textLines :
             //If the m_filename is not null (TextFile is not in a safe empty state ),
