@@ -215,11 +215,7 @@ namespace seneca {
     }
     std::ostream& TextFile::view(std::ostream& ostr)const{
         if(m_filename) {
-//            cout << m_filename << "\n==========" << endl;
-            ostr << m_filename << endl;
-            for (int i = 0; i < strlen(m_filename); ++i) {
-                ostr << '=';
-            }
+            cout << m_filename << "\n==========" << endl;
             ostr << endl;
             for (unsigned i = 1; i < lines(); i++) {
                 ostr << m_textLines[i-1].m_value << endl;
