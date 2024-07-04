@@ -2,7 +2,7 @@
 //Seneca email:hchang67@myseneca.ca
 //Seneca Student ID:120049234
 //2024-06-25 Creat this file
-//Done on
+//Done on 07-04
 
 //
 #include <iostream>
@@ -109,7 +109,7 @@ namespace seneca {
     TextFile::TextFile(unsigned pageSize):m_pageSize(pageSize){
         setEmpty();
     }
-    //Then if the filename is not null, it will set the filename, set the number of Lines and load the Text (using the corresponding private methods.)
+    //Then, if the filename is not null, it will set the filename, set the number of Lines and load the Text (using the corresponding private methods.)
     TextFile::TextFile(const char* filename, unsigned pageSize):m_pageSize(pageSize){
         setEmpty();
         if(filename != nullptr && filename[0] != '\0'){
@@ -127,15 +127,6 @@ namespace seneca {
     TextFile::TextFile(const TextFile& right):m_pageSize(right.m_pageSize){
         setEmpty();
         if(right.m_filename){
-/*            setFilename(right.name());
-            setNoOfLines();
-            loadText();
-            //TODO:check my step and function call is correct or not
-            setFilename(right.m_filename,true);
-            //create a new file and save into new file
-            right.saveAs(m_filename);
-            setNoOfLines();
-            loadText();*/
             setFilename(right.m_filename,true);
             right.saveAs(m_filename);
             setNoOfLines();

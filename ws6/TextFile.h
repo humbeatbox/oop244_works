@@ -2,7 +2,7 @@
 //Seneca email:hchang67@myseneca.ca
 //Seneca Student ID:120049234
 //2024-06-25 Creat this file
-//Done on
+//Done on 07-04
 
 //
 
@@ -24,6 +24,7 @@ namespace seneca {
 
         friend class TextFile;
         // copy and copy assignment prevention goes here
+    public:
         Line(const Line&) = delete;
         Line& operator=(const Line&) = delete;
     };
