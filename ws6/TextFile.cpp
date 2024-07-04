@@ -179,8 +179,8 @@ namespace seneca {
         if(this != &src && *this && src){//not self-assignment check and not empty state
 
             //change the name
-/*            char *originalFileName = new char[strlen(m_filename) + 1];
-            strcpy(originalFileName, m_filename);*/
+            char *originalFileName = new char[strlen(m_filename) + 1];
+            strcpy(originalFileName, m_filename);
 
             //set empty
             setEmpty();
@@ -190,20 +190,20 @@ namespace seneca {
 //            delete[] m_textLines;
 //            m_textLines = nullptr;
 
-/*            m_pageSize = src.m_pageSize;
+            m_pageSize = src.m_pageSize;
             //copy from the src
             setFilename(src.m_filename);
             setNoOfLines();
             loadText();
 
             //Saves the content of the incoming TextFile under the current filename
-            setFilename(originalFileName);*/
+            setFilename(originalFileName);
             //setFilename(src.m_filename,true);
             saveAs(m_filename);
             setNoOfLines();
             loadText();
 
-            /*delete[] originalFileName;*/
+            delete[] originalFileName;
         }
         return *this;
     }
