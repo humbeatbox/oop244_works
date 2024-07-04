@@ -1,4 +1,4 @@
-//Name:Hsiao-Kang Chang 
+//Name:Hsiao-Kang Chang
 //Seneca email:hchang67@myseneca.ca
 //Seneca Student ID:120049234
 //2024-06-25 Creat this file
@@ -32,8 +32,8 @@ namespace seneca {
     //and sets is to nullptr sets m_noOfLines attribute to zero.
     void TextFile::setEmpty(){
         if(m_textLines != nullptr){
-        delete[] m_textLines;
-        m_textLines = nullptr;
+            delete[] m_textLines;
+            m_textLines = nullptr;
         }
 
         if(m_filename != nullptr) {
@@ -103,21 +103,7 @@ namespace seneca {
 //               for (int i = 0; i < m_noOfLines; ++i) {//each line
 //                    m_textLines[i] = getline(fin,name);
 //                }
-            //TODO:check this
-                /*char buff[100];
-                string buffer;
-                while (fin){
-                    fin.getline(buff,100,'\n');
-                    getline(fin,buffer,'\n');//better default is '\n'
-                }
-                char* ptr = new char[strlen(buff)+1];
-                strcpy(ptr,buff);
-                char* ptrr = new char[buffer.length()+1];
-                strcpy(ptrr,buffer.c_str());
-
-                delete[] ptr;
-                delete[] ptrr;*/
-
+                //TODO:check this
                 string str;
                 int lineNo = 0;
                 while (getline(fin, str)) {
@@ -184,12 +170,6 @@ namespace seneca {
 
             //set empty
             setEmpty();
-/*            delete[] m_textLines;
-            m_textLines = nullptr;
-            m_pageSize = src.m_pageSize;*/
-//            delete[] m_textLines;
-//            m_textLines = nullptr;
-
             m_pageSize = src.m_pageSize;
             //copy from the src
             setFilename(src.m_filename);
@@ -198,7 +178,6 @@ namespace seneca {
 
             //Saves the content of the incoming TextFile under the current filename
             setFilename(originalFileName);
-            //setFilename(src.m_filename,true);
             saveAs(m_filename);
             setNoOfLines();
             loadText();
@@ -208,6 +187,10 @@ namespace seneca {
         return *this;
     }
     TextFile::~TextFile(){
+//        for(int i = 0;i<m_noOfLines;i++){
+//            delete m_textLines[i];
+//            m_textLines[i] = nullptr;
+//        }
         delete[] m_textLines;
         m_textLines = nullptr;
         delete[] m_filename;
@@ -219,11 +202,12 @@ namespace seneca {
             for (unsigned i = 1; i < lines(); i++) {
                 cout << m_textLines[i-1].m_value << endl;
                 if (i % m_pageSize ==0) {
-                    cout << "Hit ENTER to continue..." << endl;
+                    cout << "Hit ENTER to continue...";
                     char ch = ' ';
                     while(ch != '\n') {
                         ch = getchar();
                     }
+                    // Input enter
                     char cstr[3];
                     scanf("%[^\n]", cstr);
                 }
