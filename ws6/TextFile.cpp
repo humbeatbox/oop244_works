@@ -35,7 +35,6 @@ namespace seneca {
             delete[] m_textLines;
             m_textLines = nullptr;
         }
-
         if(m_filename != nullptr) {
             delete[] m_filename;
             m_filename = nullptr;
@@ -81,6 +80,7 @@ namespace seneca {
             delete[] m_textLines;
             m_textLines = nullptr;
         }
+        //if reuse this function we need to check it's safe state
         if(m_filename){
             m_textLines = new Line[m_noOfLines];ifstream fin;
             fin.open(m_filename);
@@ -125,7 +125,6 @@ namespace seneca {
     Saves the content of the incoming TextFile under the file name of the current TextFile
     set the number of lines loads the Text*/
     TextFile::TextFile(const TextFile& right):m_pageSize(right.m_pageSize){
-//        m_pageSize = right.m_pageSize;
         setEmpty();
         if(right.m_filename){
             setFilename(right.name());
@@ -144,27 +143,6 @@ namespace seneca {
     //it will first delete the current text and then overwrites the current file and data by the content of the incoming TextFile.
     TextFile& TextFile::operator=(const TextFile& src){
         if(this != &src && *this && src){//not self-assignment check and not empty state
-/*            //change the name
-//            char *myName = new char[strlen(m_filename) + 1];
-//            strcpy(myName, m_filename);
-
-            //set empty
-            //setEmpty();
-            m_pageSize = src.m_pageSize;
-            //copy from the src
-            setFilename(src.m_filename);
-//            setNoOfLines();
-//            loadText();
-
-            //Saves the content of the incoming TextFile under the current filename
-            //setFilename(myName);
-            src.saveAs(m_filename);
-//            saveAs(m_filename);
-            setNoOfLines();
-            loadText();
-
-//            delete[] myName;*/
-
             delete[] m_textLines;
             m_textLines = nullptr;
             src.saveAs(m_filename);
@@ -187,10 +165,11 @@ namespace seneca {
                 if (i % m_pageSize ==0) {
                     cout << "Hit ENTER to continue...";
                     char ch = ' ';
+                    //flush it
                     while(ch != '\n') {
                         ch = getchar();
                     }
-                    // Input enter
+                    //get the EOF
                     char cstr[3];
                     scanf("%[^\n]", cstr);
                 }
@@ -202,11 +181,8 @@ namespace seneca {
     //Then sets the number of lines and loads the Text.
     //When done it will return the istr;
     std::istream& TextFile::getFile(std::istream& istr){
-        //char* myName = nullptr;
-        //string str;
         char str[100];
         istr>>str;
-        //setFilename(str.c_str());
         setFilename(str);
         setNoOfLines();
         loadText();
@@ -222,9 +198,7 @@ namespace seneca {
     const char* TextFile::name()const{
         return m_filename;
     }
-    //Returns the element in the m_textLine array corresponding to the index argument.
-    //If the TextFile is in an empty state, it will return null. If the index exceeds the size of the array it should loop back to the beginning.
-    //For example, if the number of lines is 10, the last index should be 9 and index 10 should return the first element and index 11 should return the second element.
+
     const char* TextFile::operator[](unsigned index)const{
         return (m_textLines) ? m_textLines[index % (m_noOfLines -1 )].m_value : nullptr;
     }
