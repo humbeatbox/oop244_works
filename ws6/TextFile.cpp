@@ -45,14 +45,18 @@ namespace seneca {
     //If the isCopy argument is false, dynamically allocates a Cstring in m_filename and copies the content of the fname argument into it.
     //If the isCopy argument is true, dynamically allocates a Cstring in m_filename and copies the content of the fname argument with a prefix of "C_" attached to it.
     void TextFile::setFilename(const char* fname, bool isCopy){
+        if(m_filename != nullptr){
+            delete[] m_filename;
+            m_filename = nullptr;
+        }
         if(isCopy){
             m_filename = new char[strlen(fname) + 3];
             strcpy(m_filename, "C_");
+            strcat(m_filename,fname);
         } else{
             m_filename = new char[strlen(fname) + 1];
             strcpy(m_filename, fname);
         }
-        delete[] m_filename;
     }
     //Creates a local ifstream object to open the file with the name held in m_filename.
     //Then it will read the file, character by character, and accumulates the number of newlines in the m_noOfLines attribute.
@@ -90,10 +94,8 @@ namespace seneca {
             //Create a local instance of ifstream using the file name m_filename to read the lines of the text file.
             ifstream fin;
             fin.open(m_filename);
-
             //Since the length of each line is unknown, read the line using a local C++ string object and the getline helper function.
             //(note: this is the HELPER getline function and not a method of istream).
-
             if(fin.is_open()){
 //               for (int i = 0; i < m_noOfLines; ++i) {//each line
 //                    m_textLines[i] = getline(fin,name);
@@ -108,7 +110,7 @@ namespace seneca {
                 fin.close();
             }
         }
-        delete[] m_textLines;
+
     }
     //Saves the content of the TextFile under a new name.
     void TextFile::saveAs(const char *fileName)const{
@@ -182,6 +184,10 @@ namespace seneca {
         return *this;
     }
     TextFile::~TextFile(){
+//        for(int i = 0;i<m_noOfLines;i++){
+//            delete m_textLines[i];
+//            m_textLines[i] = nullptr;
+//        }
         delete[] m_textLines;
         m_textLines = nullptr;
         delete[] m_filename;
@@ -193,12 +199,7 @@ namespace seneca {
             for (unsigned i = 1; i < lines(); i++) {
                 cout << m_textLines[i-1].m_value << endl;
                 if (i % m_pageSize ==0) {
-                    //TODO: check if no more instruction
-                        //char ch = ' ';
-                        cout << "Hit ENTER to continue...";
-//                        cin.get();
-//                        cin.ignore();
-
+                    cout << "Hit ENTER to continue...";
                     char ch = ' ';
                     while(ch != '\n') {
                         ch = getchar();
