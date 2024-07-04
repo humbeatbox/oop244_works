@@ -112,7 +112,7 @@ namespace seneca {
     void TextFile::saveAs(const char *fileName)const{
         ofstream f(fileName);
         if(f.is_open()){
-            for (int i = 0; i < (lines() -1) ; i++) {
+            for (unsigned i = 0; i < (lines() -1) ; i++) {
                 f << m_textLines[i].m_value << endl;
             }
             f.close();
@@ -186,7 +186,7 @@ namespace seneca {
     std::ostream& TextFile::view(std::ostream& ostr)const{
         if(m_filename) {
             cout << m_filename << "\n==========\n";
-            for (int i = 1; i < lines(); i++) {
+            for (unsigned i = 1; i < lines(); i++) {
                 cout << m_textLines[i-1].m_value << endl;
                 if (i % m_pageSize ==0) {
                     //TODO: check if no more instruction
