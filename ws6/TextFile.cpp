@@ -24,6 +24,7 @@ namespace seneca {
 
     Line::~Line() {
         delete[] m_value;
+        m_value = nullptr;
     }
     //the below is for TextFile
 
@@ -47,11 +48,11 @@ namespace seneca {
         if(isCopy){
             m_filename = new char[strlen(fname) + 3];
             strcpy(m_filename, "C_");
-            strcat(m_filename, fname);
         } else{
             m_filename = new char[strlen(fname) + 1];
             strcpy(m_filename, fname);
         }
+        delete[] m_filename;
     }
     //Creates a local ifstream object to open the file with the name held in m_filename.
     //Then it will read the file, character by character, and accumulates the number of newlines in the m_noOfLines attribute.
@@ -107,6 +108,7 @@ namespace seneca {
                 fin.close();
             }
         }
+        delete[] m_textLines;
     }
     //Saves the content of the TextFile under a new name.
     void TextFile::saveAs(const char *fileName)const{
@@ -181,7 +183,9 @@ namespace seneca {
     }
     TextFile::~TextFile(){
         delete[] m_textLines;
+        m_textLines = nullptr;
         delete[] m_filename;
+        m_filename = nullptr;
     }
     std::ostream& TextFile::view(std::ostream& ostr)const{
         if(m_filename) {
