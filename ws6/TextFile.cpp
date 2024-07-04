@@ -13,7 +13,7 @@
 using namespace std;
 namespace seneca {
     Line::operator const char* () const {
-        return (const char*)m_value;
+        return m_value;
     }
     Line& Line::operator=(const char* lineValue) {
         delete[] m_value;
@@ -71,9 +71,9 @@ namespace seneca {
             }
             fin.close();
             m_noOfLines++;//in case last line no \n
-            if(m_noOfLines == 0){
-                setEmpty();
-            }
+        }
+        if(m_noOfLines == 0){
+            setEmpty();
         }
     }
     void TextFile::loadText(){
@@ -105,37 +105,29 @@ namespace seneca {
                 }
                 m_noOfLines = lineNo + 1;//in case
                 fin.close();
-
             }
-
         }
-
     }
     //Saves the content of the TextFile under a new name.
     void TextFile::saveAs(const char *fileName)const{
-
         ofstream f(fileName);
         if(f.is_open()){
-            for (auto i = 0; i < m_noOfLines; ++i) {
-                f << m_textLines[i] << endl;
+            for (int i = 0; i < m_noOfLines -1 ; i++) {
+                f << m_textLines[i].m_value << endl;
             }
             f.close();
         }
-
     }
     TextFile::TextFile(unsigned pageSize):m_pageSize(pageSize){
-        m_pageSize = pageSize;
         setEmpty();
     }
     //Then if the filename is not null, it will set the filename, set the number of Lines and load the Text (using the corresponding private methods.)
     TextFile::TextFile(const char* filename, unsigned pageSize):m_pageSize(pageSize){
-//        m_pageSize = pageSize;
+        setEmpty();
         if(filename != nullptr && filename[0] != '\0'){
             setFilename(filename);
             setNoOfLines();
             loadText();
-        }else{
-            setEmpty();
         }
     }
 /*  Initializes the m_pageSize attribute using the m_pageSize of the incoming TextFile object
@@ -146,26 +138,44 @@ namespace seneca {
     set the number of lines loads the Text*/
     TextFile::TextFile(const TextFile& right):m_pageSize(right.m_pageSize){
 //        m_pageSize = right.m_pageSize;
+        setEmpty();
         if(right.m_filename){
+            setFilename(right.name());
+            setNoOfLines();
+            loadText();
             //TODO:check my step and function call is correct or not
             setFilename(right.m_filename,true);
             //create a new file and save into new file
             right.saveAs(m_filename);
             setNoOfLines();
             loadText();
-        }else{
-            setEmpty();
         }
     }
 
     //If the current and the incoming TextFiles are valid
     //it will first delete the current text and then overwrites the current file and data by the content of the incoming TextFile.
     TextFile& TextFile::operator=(const TextFile& src){
-        if(this != &src && *this && src){//self-assignment check and not empty state
+        if(this != &src && *this && src){//not self-assignment check and not empty state
+
+            //change the name
+            char *originalFileName = new char[strlen(m_filename) + 1];
+            strcpy(originalFileName, m_filename);
+
+            //set empty
             setEmpty();
-            src.saveAs(m_filename);
+            m_pageSize = src.m_pageSize;
+            //copy from the src
+            setFilename(src.m_filename);
             setNoOfLines();
             loadText();
+
+            //Saves the content of the incoming TextFile under the current filename
+            setFilename(originalFileName);
+            saveAs(m_filename);
+            setNoOfLines();
+            loadText();
+
+            delete[] originalFileName;
         }
         return *this;
     }
@@ -178,20 +188,20 @@ namespace seneca {
             cout << m_filename << "\n==========\n";
             for (int i = 1; i < m_noOfLines; i++) {
                 cout << m_textLines[i-1].m_value << endl;
-                if (i % m_pageSize ==0) {//TODO:check the logic here for next page
+                if (i % m_pageSize ==0) {
                     //TODO: check if no more instruction
                         //char ch = ' ';
-                        cout << "Hit ENTER to continue...\n";
-                        cin.get();
-                        cin.ignore();
-                    //char ch = 'x';
-//                    while(ch != '\n') {
-//                        ch = getchar();
-//                    }
-//
-//                    // Input enter
-//                    char cstr[3];
-//                    scanf("%[^\n]", cstr);
+                        cout << "Hit ENTER to continue...";
+//                        cin.get();
+//                        cin.ignore();
+
+                    char ch = ' ';
+                    while(ch != '\n') {
+                        ch = getchar();
+                    }
+                    // Input enter
+                    char cstr[3];
+                    scanf("%[^\n]", cstr);
                 }
             }
         }
@@ -226,7 +236,7 @@ namespace seneca {
     //If the TextFile is in an empty state, it will return null. If the index exceeds the size of the array it should loop back to the beginning.
     //For example, if the number of lines is 10, the last index should be 9 and index 10 should return the first element and index 11 should return the second element.
     const char* TextFile::operator[](unsigned index)const{
-        return (m_textLines && index < m_noOfLines) ? m_textLines[index % m_noOfLines] : nullptr;
+        return (m_textLines) ? m_textLines[index % (m_noOfLines -1 )].m_value : nullptr;
     }
 
     std::ostream& operator<<(std::ostream& ostr, const TextFile& text){
