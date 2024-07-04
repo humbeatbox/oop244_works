@@ -127,12 +127,16 @@ namespace seneca {
     TextFile::TextFile(const TextFile& right):m_pageSize(right.m_pageSize){
         setEmpty();
         if(right.m_filename){
-            setFilename(right.name());
+/*            setFilename(right.name());
             setNoOfLines();
             loadText();
             //TODO:check my step and function call is correct or not
             setFilename(right.m_filename,true);
             //create a new file and save into new file
+            right.saveAs(m_filename);
+            setNoOfLines();
+            loadText();*/
+            setFilename(right.m_filename,true);
             right.saveAs(m_filename);
             setNoOfLines();
             loadText();
