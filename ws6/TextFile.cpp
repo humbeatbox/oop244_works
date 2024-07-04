@@ -161,9 +161,9 @@ namespace seneca {
 //        m_pageSize = right.m_pageSize;
         setEmpty();
         if(right.m_filename){
-//            setFilename(right.name());
-//            setNoOfLines();
-//            loadText();
+            setFilename(right.name());
+            setNoOfLines();
+            loadText();
             //TODO:check my step and function call is correct or not
             setFilename(right.m_filename,true);
             //create a new file and save into new file
