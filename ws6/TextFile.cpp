@@ -58,16 +58,11 @@ namespace seneca {
             strcpy(m_filename, fname);
         }
     }
-    //Creates a local ifstream object to open the file with the name held in m_filename.
-    //Then it will read the file, character by character, and accumulates the number of newlines in the m_noOfLines attribute.
-    //In the end, it will increase m_noOfLines by one, just in case, the last line does not have a new line at the end.
-    //If the number of lines is zero, it will delete the m_filename and set it to nullptr. (Setting the TextFile to a safe empty state)
-    void TextFile::setNoOfLines(){
+       void TextFile::setNoOfLines(){
         ifstream fin;
         fin.open(m_filename);
         if(fin.is_open()){
-            m_noOfLines = 0;//need the init?
-            //string line;//tmp string
+            m_noOfLines = 0;
             char ch;
             while (fin.get(ch)){
                 if(ch == '\n'){
@@ -87,23 +82,9 @@ namespace seneca {
             m_textLines = nullptr;
         }
         if(m_filename){
-            //Loads the text file m_filename into the dynamic array of Lines pointed by m_textLines :
-            //If the m_filename is not null (TextFile is not in a safe empty state ),
-            //loadText() will dynamically allocate an array of Lines pointed by m_textLines with the size kept in m_noOfLine
-            //delete[] m_textLines;
-            m_textLines = new Line[m_noOfLines];
-            //TODO:Make sure m_textLine is deleted before this to prevent memory leak.
-
-            //Create a local instance of ifstream using the file name m_filename to read the lines of the text file.
-            ifstream fin;
+            m_textLines = new Line[m_noOfLines];ifstream fin;
             fin.open(m_filename);
-            //Since the length of each line is unknown, read the line using a local C++ string object and the getline helper function.
-            //(note: this is the HELPER getline function and not a method of istream).
             if(fin.is_open()){
-//               for (int i = 0; i < m_noOfLines; ++i) {//each line
-//                    m_textLines[i] = getline(fin,name);
-//                }
-                //TODO:check this
                 string str;
                 int lineNo = 0;
                 while (getline(fin, str)) {
@@ -165,32 +146,29 @@ namespace seneca {
         if(this != &src && *this && src){//not self-assignment check and not empty state
 
             //change the name
-            char *originalFileName = new char[strlen(m_filename) + 1];
-            strcpy(originalFileName, m_filename);
+//            char *originalFileName = new char[strlen(m_filename) + 1];
+//            strcpy(originalFileName, m_filename);
 
             //set empty
             setEmpty();
             m_pageSize = src.m_pageSize;
             //copy from the src
-            setFilename(src.m_filename);
-            setNoOfLines();
-            loadText();
+//            setFilename(src.m_filename);
+//            setNoOfLines();
+//            loadText();
 
             //Saves the content of the incoming TextFile under the current filename
-            setFilename(originalFileName);
+            //setFilename(originalFileName);
+            setFilename(src.m_filename);
             saveAs(m_filename);
             setNoOfLines();
             loadText();
 
-            delete[] originalFileName;
+            //delete[] originalFileName;
         }
         return *this;
     }
     TextFile::~TextFile(){
-//        for(int i = 0;i<m_noOfLines;i++){
-//            delete m_textLines[i];
-//            m_textLines[i] = nullptr;
-//        }
         delete[] m_textLines;
         m_textLines = nullptr;
         delete[] m_filename;
@@ -222,7 +200,6 @@ namespace seneca {
         //char* myName = nullptr;
         //string str;
         char str[100];
-        //TODO:check can i use like this?
         istr>>str;
         //setFilename(str.c_str());
         setFilename(str);
