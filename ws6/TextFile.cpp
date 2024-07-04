@@ -144,7 +144,7 @@ namespace seneca {
     //it will first delete the current text and then overwrites the current file and data by the content of the incoming TextFile.
     TextFile& TextFile::operator=(const TextFile& src){
         if(this != &src && *this && src){//not self-assignment check and not empty state
-            //change the name
+/*            //change the name
 //            char *myName = new char[strlen(m_filename) + 1];
 //            strcpy(myName, m_filename);
 
@@ -163,7 +163,13 @@ namespace seneca {
             setNoOfLines();
             loadText();
 
-//            delete[] myName;
+//            delete[] myName;*/
+
+            delete[] m_textLines;
+            m_textLines = nullptr;
+            src.saveAs(m_filename);
+            setNoOfLines();
+            loadText();
         }
         return *this;
     }
