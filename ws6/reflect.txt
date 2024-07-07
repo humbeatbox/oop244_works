@@ -1,13 +1,119 @@
-define and create copy constructors
-define and create copy assignment
-Prevent copying and assignment in a class
-Overload insertion operator so the class can be printed using ostream
-Overload extraction operator so the class can be read using istream
-Do simple file IO using ifstream and ofstream
-use the C++ string class to extract an unknown number of characters from the input.
+1.define and create copy constructors
+2.define and create copy assignment
+Focus on rule of three:
+First:
+    Every time we create or overload the destructor, copy constructor or copy assignment operator we need all of them.
+    TextFile::TextFile(const TextFile& right):m_pageSize(right.m_pageSize){
+        setEmpty();
+        if(right.m_filename){
+            setFilename(right.m_filename,true);
+            right.saveAs(m_filename);
+            setNoOfLines();
+            loadText();
+        }
+we need to create a destructor with the same type of class and dynamic allocate a memory(in setFilename method)
+Second:
+    create a copy assignment for assign, and make sure it's not self-assign and source is not empty
+    TextFile& TextFile::operator=(const TextFile& src){
+        if(this != &src && *this && src){//not self-assignment check and not empty state
+            delete[] m_textLines;
+            m_textLines = nullptr;
+            src.saveAs(m_filename);
+            setNoOfLines();
+            loadText();
+        }
+        return *this;
+    }
+Third:
+    delete the the memory that we allocate to prevent the memory leak
+    TextFile::~TextFile(){
+        delete[] m_textLines;
+        m_textLines = nullptr;
+        delete[] m_filename;
+        m_filename = nullptr;
+    }
+setFilename method call in copy constructor to dynamic allocate a memory
+/*
+    void TextFile::setFilename(const char* fname, bool isCopy){
+        if(m_filename != nullptr){
+            delete[] m_filename;
+            m_filename = nullptr;
+        }
+        if(isCopy){
+            m_filename = new char[strlen(fname) + 3];
+            strcpy(m_filename, "C_");
+            strcat(m_filename,fname);
+        } else{
+            m_filename = new char[strlen(fname) + 1];
+            strcpy(m_filename, fname);
+        }
+    }
+*/
+3.Prevent copying and assignment in a class
+If we clearly want the user not to implement and use specific type of constructor or operator, we can add the delete in the end in class.
+Like this:
+Line(const Line&) = delete;
+Line& operator=(const Line&) = delete;
 
+4.Overload insertion operator so the class can be printed using ostream
+We use the helper function in here to overload insertion operator and return the ostream so that we can keep print the next in the main function
+    std::ostream& operator<<(std::ostream& ostr, const TextFile& text){
+        return text.view(ostr);
+    }
+    std::ostream& TextFile::view(std::ostream& ostr)const{
+        ...
+        return ostr;
+    }
+in the main we use it like this : cout << "*" << Empty << BadFilename << "*" << endl;
 
-strcat concat the cstring to the destination.
-getline extract '\n'
+5.Overload extraction operator so the class can be read using istream
+We use the getFile in operator>>, to get input,
+    std::istream& operator>>(std::istream& istr, TextFile& text){
+        return text.getFile(istr);
+    }
+    std::istream& TextFile::getFile(std::istream& istr){
+        ...
+        return istr;
+    }
+in the main we use it like this : cin >> E;
 
-using the initialize list
+6.Do simple file IO using ifstream and ofstream
+we sue the ifstream and ofstream to create a file, we don't need to close it because it's a object of it will close itself in the destructor.
+        ifstream fin;
+        fin.open(m_filename);
+        if(fin.is_open()){
+            m_noOfLines = 0;
+            char ch;
+            while (fin.get(ch)){
+                if(ch == '\n'){
+                    m_noOfLines++;
+                }
+            }
+            fin.close();
+            m_noOfLines++;//in case last line no \n
+        }
+        ofstream f(fileName);
+        if(f.is_open()){
+            for (unsigned i = 0; i < (lines() -1) ; i++) {
+                f << m_textLines[i].m_value << endl;
+            }
+            f.close();
+        }
+
+7.use the C++ string class to extract an unknown number of characters from the input.
+In the following code, we create a string type of str to get line in the file and use c_str function to transfer it to c type string.
+            string str;
+            int lineNo = 0;
+            while (getline(fin, str)) {
+                m_textLines[lineNo++] = str.c_str();
+            }
+
+8.
+if we would reuse the same object, delete the wrong content in the variable and set to nullptr before we use it to prevent the memory leak.
+ void TextFile::loadText(){
+        if(m_textLines != nullptr){
+            delete[] m_textLines;
+            m_textLines = nullptr;
+        }
+        ...
+    }
