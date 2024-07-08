@@ -17,8 +17,6 @@ namespace seneca{
         strcpy(m_lpNumber, LPNumber.c_str());
         m_lpNumber[8] = '\0';
         m_year = year;
-//        strcpy(m_address, "Factory");
-//        m_address[63] = '\0';
     }
     void MotorVehicle::moveTo(const char* address){
         if(address != nullptr && strcmp(m_address,address) != 0 ) {//the content of address is different

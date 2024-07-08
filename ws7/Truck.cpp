@@ -11,18 +11,22 @@
 using namespace seneca;
 namespace seneca{
 
-    Truck::Truck(string LPNumber, size_t year,double capacity,string address) : MotorVehicle(LPNumber,year) {
-        m_cargo = capacity;
+    Truck::Truck(string LPNumber, size_t year,double capacity,string address) : MotorVehicle(LPNumber,year),m_capacity(capacity),m_cargo(0) {
         moveTo(address.c_str());
-        //TODO:check use moveTo is correct or not
     }
 
     bool Truck::addCargo(double cargo) {
-        if((cargo + m_cargo) <= m_capacity){
-            m_cargo +=cargo;
-            return true;
+        bool ret{};
+        if(cargo != 0){
+            if(m_capacity > (m_cargo+cargo)){
+                m_cargo += cargo;
+                ret = true;
+            }else if(m_capacity < (m_cargo+cargo)){
+                m_cargo = m_capacity;
+                ret = true;
+            }
         }
-        return false;
+        return ret;
     }
 
     bool Truck::unloadCargo() {
@@ -34,16 +38,14 @@ namespace seneca{
     }
     ostream& Truck::write(ostream& os){
         MotorVehicle::write(os) << " | " << m_cargo << "/" << m_capacity;
-        //cout << "| " << m_year << " | " << m_address << " | " << m_cargo << "/" << m_capacity;
-        //TODO:check can i use like this
         return os;
     }
 
-    istream &Truck::read(istream &in) {
+    istream& Truck::read(istream &in) {
         MotorVehicle::read(in);
-        cout <<"Capacity: \n";
+        cout <<"Capacity: ";
         cin >> m_capacity;
-        cout << "Cargo: \n";
+        cout << "Cargo: ";
         cin >> m_cargo;
         return in;
     }

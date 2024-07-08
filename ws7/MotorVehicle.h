@@ -17,7 +17,6 @@ namespace seneca{
        char m_lpNumber[9]{};
        char m_address[64]={"Factory"};
        size_t m_year{};
-       //You can add any other private members in the class, as required by your design.
     public:
         MotorVehicle(string,size_t);
         void moveTo(const char*);
