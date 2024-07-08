@@ -16,6 +16,8 @@ namespace seneca{
     MotorVehicle::MotorVehicle(string LPNumber,size_t year){
         strcpy(m_lpNumber, LPNumber.c_str());
         m_lpNumber[8] = '\0';
+        strncpy(m_address, "Factory", 63);
+        m_address[63] = '\0';
         m_year = year;
     }
     void MotorVehicle::moveTo(const char* address){

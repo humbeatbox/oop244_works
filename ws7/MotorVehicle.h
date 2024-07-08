@@ -15,7 +15,7 @@ using namespace std;
 namespace seneca{
     class MotorVehicle{
        char m_lpNumber[9]{};
-       char m_address[64]={"Factory"};
+       char m_address[64]{};
        size_t m_year{};
     public:
         MotorVehicle(string,size_t);
