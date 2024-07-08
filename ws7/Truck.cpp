@@ -17,7 +17,7 @@ namespace seneca{
 
     bool Truck::addCargo(double cargo) {
         bool ret{};
-        if(cargo != 0){
+        if(cargo != 0 && m_capacity != m_cargo){
             if(m_capacity > (m_cargo+cargo)){
                 m_cargo += cargo;
                 ret = true;
