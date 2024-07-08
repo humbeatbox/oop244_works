@@ -22,7 +22,7 @@ namespace seneca{
     }
     void MotorVehicle::moveTo(const char* address){
         if(address != nullptr && strcmp(m_address,address) != 0 ) {//the content of address is different
-            cout << "| "
+            cout << "|"
                  << setw(8) << right
                  << m_lpNumber
                  << "| |"
