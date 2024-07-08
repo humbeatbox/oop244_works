@@ -15,7 +15,7 @@ using namespace std;
 namespace seneca{
     class MotorVehicle{
        char m_lpNumber[9]{};
-       char m_address[64]{};
+       char m_address[64]={"Factory"};
        size_t m_year{};
        //You can add any other private members in the class, as required by your design.
     public:
@@ -25,7 +25,7 @@ namespace seneca{
         virtual ostream& write(ostream&)const;
         virtual istream& read(istream&);
     };
-    std::ostream& operator<<(std::ostream&,MotorVehicle&);
+    std::ostream& operator<<(std::ostream&,const MotorVehicle&);
     std::istream& operator>>(std::istream&,MotorVehicle&);
 }
 #endif //WS7_MOTORVEHICLE_H
