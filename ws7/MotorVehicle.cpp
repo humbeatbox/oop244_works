@@ -27,7 +27,7 @@ namespace seneca{
                  << m_lpNumber
                  << "| |"
                  << setw(20) << m_address
-                 << "--->"
+                 << " ---> "
                  << setw(20) << left << address
                  << "|" << endl;
             strncpy(m_address, address, 64);
