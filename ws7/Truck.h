@@ -18,10 +18,10 @@ namespace seneca{
         Truck(string LPNumber, size_t year,double capacity,string address);
         bool addCargo(double cargo);
         bool unloadCargo();
-        ostream& write(ostream& os);
+        ostream& write(ostream& os)const;
         istream& read(istream& in);
     };
-    std::ostream& operator<<(std::ostream&,Truck&);
+    std::ostream& operator<<(std::ostream&,const Truck&);
     std::istream& operator>>(std::istream&,Truck&);
 }
 #endif //WS7_TRUCK_H

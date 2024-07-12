@@ -36,7 +36,7 @@ namespace seneca{
         }
         return false;
     }
-    ostream& Truck::write(ostream& os){
+    ostream& Truck::write(ostream& os)const{
         MotorVehicle::write(os) << " | " << m_cargo << "/" << m_capacity;
         return os;
     }
@@ -49,7 +49,7 @@ namespace seneca{
         cin >> m_cargo;
         return in;
     }
-    std::ostream& operator<<(std::ostream &os,Truck &T){
+    std::ostream& operator<<(std::ostream &os,const Truck &T){
         return T.write(os);
     }
     std::istream& operator>>(std::istream &is,Truck &T){

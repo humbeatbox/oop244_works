@@ -1,0 +1,107 @@
+1.inherit a derived class from a base class
+we have three different way to inherit from the parent class
+public, protected and private. in this workshop we use the public one.
+
+class Truck : public MotorVehicle
+
+2.shadow a base class member function with a derived class member function
+in our workshop is like:
+in Truck.cpp file
+    ostream& MotorVehicle::write(ostream& os)const{
+        ...
+    }
+    istream& MotorVehicle::read(istream& in){
+        ...
+    }
+
+it shadows the function in MotorVehicle file
+    ostream& Truck::write(ostream& os)const{
+        ...
+    }
+
+    istream& Truck::read(istream &in) {
+        ...
+    }
+in main is here:
+cout << endl << (MotorVehicle)aTruck;
+it force it to be like MotorVehicle, so it will use the function and print(| 2019 | def-222 | Montreal)
+if we don't use (MotorVehicle) to force it to be like a MotorVehicle and just
+cout << endl << aTruck;
+it will as a Truck and print with m_cargo / m_capacity like this (| 2019 | def-222 | Montreal | 1234/2345)
+
+3.access a shadowed member function that is defined in a base class
+as the upper part we mentioned, use the base class in front of the function and add the "::"
+
+    ostream& Truck::write(ostream& os)const{
+        MotorVehicle::write(os) << " | " << m_cargo << "/" << m_capacity;
+        return os;
+    }
+we use the MotorVehicle:: to call the write function in Truck,cpp.
+
+    istream& Truck::read(istream &in) {
+        MotorVehicle::read(in);
+        cout <<"Capacity: ";
+        cin >> m_capacity;
+        cout << "Cargo: ";
+        cin >> m_cargo;
+        return in;
+    }
+we use the MotorVehicle:: to call the read function in Truck.cpp.
+
+4.utilize custom input/output operators with these classes
+if the helper function "<< and >>" get a different of parameter, it will have different return.
+
+    std::ostream& operator<<(std::ostream &os,const Truck &T){
+        return T.write(os);
+    }
+    std::istream& operator>>(std::istream &is,Truck &T){
+        return T.read(is);
+    }
+
+    std::ostream& operator<<(std::ostream &os,const MotorVehicle &M){
+        return M.write(os);
+    }
+    std::istream& operator>>(std::istream &is,MotorVehicle& M){
+        return M.read(is);
+    }
+
+5.describe to your instructor what you have learned in completing this workshop
+Do not forgot the const syntax if we don't want to change the variable where ever it is.
+
+Complementary for 2:
+the idea of shadowing is every similar with Polymorphism but still have some different.
+if we call it as a Truck, it will call write function from the Truck class.
+what if we want to call the base function, we can use "MotorVehicle::write" to call it.
+some example here:
+
+This the concept of Polymorphism(need the virtual)
+class Base {
+public:
+    virtual void foo() { cout << "Base::foo" << endl; }
+};
+class Derived : public Base {
+public:
+    void foo() override { cout << "Derived::foo" << endl; }
+};
+Base* ptr = new Derived();
+ptr->foo();  // output is : Derived::foo
+
+Here is the concept of Shadowing(without virtual syntax)
+
+class Base {
+public:
+    void foo() { cout << "Base::foo" << endl; }
+};
+class Derived : public Base {
+public:
+    void foo() { cout << "Derived::foo" << endl; }
+};
+Base* ptr1 = new Derived();
+ptr1->foo();  // output is : Base::foo
+and
+Derived* ptr2 = new Derived();
+ptr2->foo();  // output is : Derived::foo
+
+because the shadowing is creating two different function,
+and the ptr1 is point to Base type,the ptr1 will print "Base::foo"
+but the ptr2 will print "Derived::foo"(because it shadows the Base one)
