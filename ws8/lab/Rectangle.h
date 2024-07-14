@@ -2,10 +2,8 @@
 //Seneca email:hchang67@myseneca.ca
 //Seneca Student ID:120049234
 //2024-07-14 Creat this file
-//Done on
-
+//Done on 2024-07-14
 //
-
 #ifndef WS8_RECTANGLE_H
 #define WS8_RECTANGLE_H
 #include "LblShape.h"
@@ -17,9 +15,7 @@ namespace seneca{
         size_t m_width{};
     public:
         Rectangle()=default;
-//        Rectangle(char*,size_t ,size_t);
         Rectangle(std::string,size_t ,size_t);
-        //virtual ~Rectangle();
         void getSpecs(std::istream &istr) override;
          void draw(std::ostream&) const override;
     };

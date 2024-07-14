@@ -2,18 +2,15 @@
 //Seneca email:hchang67@myseneca.ca
 //Seneca Student ID:120049234
 //2024-07-13 Creat this file
-//Done on
-
+//Done on 2024-07-14
 //
-
 #ifndef WS8_SHAPE_H
 #define WS8_SHAPE_H
-
 #include <ostream>
 #include <istream>
 #include <cstring>
-namespace seneca {
 
+namespace seneca {
     class Shape {
     public:
     virtual void draw(std::ostream&) const = 0;

@@ -2,20 +2,12 @@
 //Seneca email:hchang67@myseneca.ca
 //Seneca Student ID:120049234
 //2024-07-14 Creat this file
-//Done on
-
+//Done on 2024-07-14
 //
-
 #include "Line.h"
-
 using namespace seneca;
 using namespace std;
 namespace seneca{
-//    Line::Line():LblShape(){
-//
-//    }
-
-//    Line::Line(char* label, size_t length) : LblShape(label),m_length(length){
     Line::Line(string label, size_t length) : LblShape(label),m_length(length){
     }
 

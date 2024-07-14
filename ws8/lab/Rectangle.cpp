@@ -2,17 +2,14 @@
 //Seneca email:hchang67@myseneca.ca
 //Seneca Student ID:120049234
 //2024-07-14 Creat this file
-//Done on
-
+//Done on 2024-07-14
 //
-
 #include "Rectangle.h"
 #include <cstring>
 #include <iomanip>
 using namespace seneca;
 using namespace std;
 namespace seneca{
-//    Rectangle::Rectangle(char* label, size_t width, size_t height) : LblShape(label),m_height(height),m_width(width){
     Rectangle::Rectangle(string label, size_t width, size_t height) : LblShape(label),m_height(height),m_width(width){
         if(m_height < 3 || m_width < (strlen(label.c_str())) + 2){
             //*this = Rectangle();
@@ -32,17 +29,14 @@ namespace seneca{
         if (m_width > 0 && m_height > 0 && label() != nullptr) {
             //top
             os << "+" << std::string(m_width - 2, '-') <<  "+" << endl;
-
             //second
             os << "|" << left << setw((int)m_width-2) <<label() << "|" << endl;
-
             //mid
             for (size_t i = 0; i < m_height - 3; ++i) {
                 os << '|' << string(m_width - 2, ' ') << '|' << endl;
             }
-
             //last
-            os << '+' << string(m_width - 2, '-') << '+' ;//<< endl;
+            os << '+' << string(m_width - 2, '-') << '+' ;
         }
     }
 
