@@ -21,6 +21,7 @@ namespace seneca{
 
     void Line::getSpecs(std::istream &istr) {
         LblShape::getSpecs(istr);
+        istr >> m_length;
         istr.ignore(1000,'\n');
     }
 
