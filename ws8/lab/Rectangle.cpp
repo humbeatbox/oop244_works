@@ -12,8 +12,9 @@
 using namespace seneca;
 using namespace std;
 namespace seneca{
-    Rectangle::Rectangle(char* label, size_t width, size_t height) : LblShape(label),m_height(height),m_width(width){
-        if(m_height < 3 || m_width < (strlen(label)) + 2){
+//    Rectangle::Rectangle(char* label, size_t width, size_t height) : LblShape(label),m_height(height),m_width(width){
+    Rectangle::Rectangle(string label, size_t width, size_t height) : LblShape(label),m_height(height),m_width(width){
+        if(m_height < 3 || m_width < (strlen(label.c_str())) + 2){
             //*this = Rectangle();
            m_width = 0;
            m_height = 0;
@@ -33,7 +34,7 @@ namespace seneca{
             os << "+" << std::string(m_width - 2, '-') <<  "+" << endl;
 
             //second
-            os << "|" << left << setw((int)m_width-2) <<label();
+            os << "|" << left << setw((int)m_width-2) <<label() << "|" << endl;
 
             //mid
             for (size_t i = 0; i < m_height - 3; ++i) {

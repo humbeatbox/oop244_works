@@ -17,7 +17,8 @@ namespace seneca{
         size_t m_height{};
     public:
         Rectangle()=default;
-        Rectangle(char*,size_t ,size_t);
+//        Rectangle(char*,size_t ,size_t);
+        Rectangle(std::string,size_t ,size_t);
         //virtual ~Rectangle();
         void getSpecs(std::istream &istr) override;
          void draw(std::ostream&) const override;

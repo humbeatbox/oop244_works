@@ -9,15 +9,17 @@
 #include "LblShape.h"
 #include <istream>
 using namespace seneca;
+using namespace std;
 namespace seneca{
     char* LblShape::label() const {
         return m_label;
     }
-
-    LblShape::LblShape(const char *label) {
-        if(label != nullptr){
-            m_label = new char[strlen(label) + 1];
-            strcpy(m_label,label);
+//LblShape::LblShape(const char *label) {
+    LblShape::LblShape(const string label) {
+//        if(label != nullptr){
+        if(!label.empty()){
+            m_label = new char[strlen(label.c_str()) + 1];
+            strcpy(m_label,label.c_str());
         }
     }
 

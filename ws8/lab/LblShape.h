@@ -19,7 +19,7 @@ namespace seneca {
         char* label()const;
     public:
         LblShape() = default;
-        LblShape(const char*);
+        LblShape(const std::string);
         virtual ~LblShape();
 
         void getSpecs(std::istream &istr);

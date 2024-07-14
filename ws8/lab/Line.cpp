@@ -15,7 +15,8 @@ namespace seneca{
 //
 //    }
 
-    Line::Line(char* label, size_t length) : LblShape(label),m_length(length){
+//    Line::Line(char* label, size_t length) : LblShape(label),m_length(length){
+    Line::Line(string label, size_t length) : LblShape(label),m_length(length){
     }
 
     void Line::getSpecs(std::istream &istr) {
@@ -25,7 +26,7 @@ namespace seneca{
 
     void Line::draw(ostream &os) const {
         if(m_length>0 && label() != nullptr){
-            os << m_length << endl;
+            os << label() << endl;
             for (int i = 0; i < m_length; ++i) {
                 os << "=";
             }

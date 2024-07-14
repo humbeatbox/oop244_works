@@ -16,7 +16,8 @@ namespace seneca{
         size_t m_length{};
     public:
         Line() = default;
-        Line(char*,size_t);
+//        Line(char*,size_t);
+        Line(std::string ,size_t);
         //virtual ~Line();
 //TODO: no destructor implement
         void getSpecs(std::istream &istr) override;
