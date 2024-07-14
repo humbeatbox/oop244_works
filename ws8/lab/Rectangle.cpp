@@ -38,11 +38,11 @@ namespace seneca{
 
             //mid
             for (size_t i = 0; i < m_height - 3; ++i) {
-                os << '|' << std::string(m_width - 2, ' ') << '|' << std::endl;
+                os << '|' << string(m_width - 2, ' ') << '|' << endl;
             }
 
             //last
-            os << '+' << std::string(m_width - 2, '-') << '+' << std::endl;
+            os << '+' << string(m_width - 2, '-') << '+' ;//<< endl;
         }
     }
 
