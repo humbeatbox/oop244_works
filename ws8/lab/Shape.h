@@ -11,6 +11,7 @@
 
 #include <ostream>
 #include <istream>
+#include <cstring>
 namespace seneca {
 
     class Shape {

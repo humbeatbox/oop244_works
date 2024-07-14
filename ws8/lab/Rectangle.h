@@ -13,8 +13,8 @@
 using namespace seneca;
 namespace seneca{
     class Rectangle : public LblShape{
-        size_t m_width{};
         size_t m_height{};
+        size_t m_width{};
     public:
         Rectangle()=default;
 //        Rectangle(char*,size_t ,size_t);

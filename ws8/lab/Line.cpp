@@ -28,7 +28,7 @@ namespace seneca{
     void Line::draw(ostream &os) const {
         if(m_length>0 && label() != nullptr){
             os << label() << endl;
-            for (int i = 0; i < m_length; ++i) {
+            for (size_t i = 0; i < m_length; ++i) {
                 os << "=";
             }
         }
