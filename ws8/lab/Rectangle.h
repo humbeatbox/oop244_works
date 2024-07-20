@@ -16,8 +16,8 @@ namespace seneca{
     public:
         Rectangle()=default;
         Rectangle(std::string,size_t ,size_t);
-        void getSpecs(std::istream &istr) override;
-         void draw(std::ostream&) const override;
+        virtual void getSpecs(std::istream &istr);
+        virtual void draw(std::ostream&) const;
     };
 }
 #endif //WS8_RECTANGLE_H
