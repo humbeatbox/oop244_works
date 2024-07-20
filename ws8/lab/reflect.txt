@@ -1,0 +1,54 @@
+1.define pure virtual functions
+to define the pure function, we need to add the virtual in front of the method and " = 0" in the end of method.
+like this
+    virtual void draw(std::ostream&) const = 0;
+    virtual void getSpecs(std::istream&) = 0;
+now the draw and getSpecs become the pure virtual functions. This derived class must implement this pure virtual functions.
+unless the derived class is virtual class.
+
+2.create abstract base classes
+abstract base classes can not be implemented, it is for to derive class to implement.
+like Shape class is a abstract base classes every derive class inheritance from shape must implement it
+unless the derive class is abstract class.
+in shape we define the pure virtual functions so the shape is the abstract base classes
+then in Rectangle class
+    void Rectangle::getSpecs(std::istream &istr){
+        //...
+    }
+
+    void Rectangle::draw(std::ostream &os) const {
+        //...
+    }
+we need to implement it.
+
+3.implement behaviour using virtual functions
+we can use virtual in the header file to let compiler know we already implement it in the derived class
+        virtual void getSpecs(std::istream &istr) ;
+        virtual void draw(std::ostream&) const;
+
+just like the 3 we mentioned we implement the pure virtual functions in Rectangle class.
+
+4.explain the difference between an abstract base class and a concrete class
+abstract base class must need at least one function is pure virtual functions.
+and it can not be implemented in abstract class.
+
+however, concrete class is the class that implement the abstract class and derive the method from its parents.
+
+
+5.describe what you have learned in completing this workshop
+
+get the string type from main we need to transfer it to c_str() to get the pointer that point to string so that we can use strcpy to copy.
+
+use the string to print "-" like "string(m_width - 2, '-')" to draw the -.
+
+delete delete[].
+if we use the char* to point to a c type string, we need to use the delete[] to delete because it's not only one character but the array
+//single character and pointer
+
+initialize list should align with the sequence that I declare
+if we declare the following size_t type variable
+        size_t m_height{};
+        size_t m_width{};
+we need to match the sequence that we declare like bellow
+LblShape(label),m_height(height),m_width(width)
+(this happen in Matrix)
