@@ -1,4 +1,5 @@
 #include <fstream>
+#include <cstring>
 #include "Text.h"
 using namespace std;
 namespace seneca {

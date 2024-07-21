@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstring>
 #include "HtmlText.h"
 
 using namespace std;
