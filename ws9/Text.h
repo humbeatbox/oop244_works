@@ -11,7 +11,7 @@ namespace seneca {
    public:
       Text(const char* filename=nullptr);
        // implement rule of three here
-       Text(Text&);
+       Text(const Text&);
        ~Text();
        Text& operator=(const Text&);
 
