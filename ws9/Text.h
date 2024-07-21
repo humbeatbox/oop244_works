@@ -10,14 +10,14 @@ namespace seneca {
       const char& operator[](int index)const;
    public:
       Text(const char* filename=nullptr);
-
+       // implement rule of three here
+       Text(Text&);
+       ~Text();
+       Text& operator=(const Text&);
 
       void read();
       virtual void write(std::ostream& os)const;
 
-      Text(Text&);
-      ~Text();
-      Text& operator=(const Text&);
    };
     std::ostream& operator<<(std::ostream&,const Text&);
 }

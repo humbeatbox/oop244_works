@@ -5,4 +5,5 @@ set(CMAKE_CXX_STANDARD 11)
 
 add_executable(ws9 main.cpp
         HtmlText.cpp
-        Text.cpp)
+        Text.cpp
+        main_prof.cpp)

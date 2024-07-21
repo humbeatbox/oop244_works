@@ -13,11 +13,23 @@ namespace seneca {
    }
 
     Text::Text(Text &right){
-        *this = right;
+        if (right.m_filename != nullptr) {
+            delete[] m_filename;
+            m_filename = nullptr;
+            m_filename = new char[strlen(right.m_filename) + 1];
+            strcpy(m_filename, right.m_filename);
+        }
+
+        if (right.m_content != nullptr) {
+            delete[] m_content;
+            m_content = nullptr;
+            m_content = new char[strlen(right.m_content) + 1];
+            strcpy(m_content,right.m_content);
+        }
     }
 
     Text& Text::operator=(const Text &right) {
-       if(this != &right){
+       if(this == &right){
            return *this;
        }
        if(right.m_filename && right.m_content){
@@ -58,6 +70,20 @@ namespace seneca {
             os << m_content;
         }
     }
+
+    const char &Text::operator[](int index) const {
+        return (index >= 0 && index < strlen(m_content)) ? m_content[index] : m_content[strlen(m_content)];
+//        return (index >= 0 && index < strlen(m_content)) ? m_content[index] : '\0';
+    }
+
+    Text::Text(const char *filename) {
+        if(filename != nullptr){
+            m_filename = new char[strlen(filename) + 1];
+            strcpy(m_filename,filename);
+            read();
+        }
+    }
+
     std::ostream& operator<<(std::ostream& os,const Text &T){
        T.write(os);
         return os;
