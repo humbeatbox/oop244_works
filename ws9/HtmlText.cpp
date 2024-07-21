@@ -5,7 +5,7 @@
 using namespace std;
 using namespace seneca;
 namespace seneca {
-    HtmlText::HtmlText(const char *filename, const char* title) : Text(filename){
+    HtmlText::HtmlText(const char *filename, const char* title) : Text(filename),m_title(nullptr){
         if(title != nullptr){
             m_title = new char[strlen(title) + 1];
             strcpy(m_title,title);
@@ -21,10 +21,6 @@ namespace seneca {
             os << "No Title";
         }
         os << "</title></head>\n<body>\n";
-
-//        if (m_title) {
-//            os << "<h1>" << m_title << "</h1>\n";
-//        }
         os << "<h1>";
         if(m_title == nullptr){
             os << "No Title";
@@ -66,10 +62,7 @@ namespace seneca {
 
     HtmlText::HtmlText(HtmlText &right) : Text(right){
         if(right.m_title != nullptr) {
-            delete[] m_title;
-            m_title = nullptr;
-            m_title = new char[strlen(right.m_title) + 1];
-            strcpy(m_title, right.m_title);
+            copyTitle(right.m_title);
         }
     }
 
@@ -83,11 +76,18 @@ namespace seneca {
             return *this;
         }
         Text::operator=(right);
+        copyTitle(right.m_title);
+        return *this;
+    }
+
+    void HtmlText::copyTitle(const char *title) {
         delete[] m_title;
         m_title = nullptr;
-        m_title = new char[strlen(right.m_title) + 1];
-        strcpy(m_title,right.m_title);
-
-        return *this;
+        if (title != nullptr) {
+            m_title = new char[strlen(title) + 1];
+            strcpy(m_title, title);
+        } else {
+            m_title = nullptr;
+        }
     }
 }

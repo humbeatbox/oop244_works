@@ -4,10 +4,11 @@
 namespace seneca {
    class HtmlText :  public Text {
       char* m_title{};
+      void copyTitle(const char*);
    public:
       HtmlText(const char* filename=nullptr, const char* title = nullptr);
 
-       virtual void write(std::ostream& os)const;
+        virtual void write(std::ostream& os)const;
         //rule of three
         HtmlText(HtmlText&);
         virtual ~HtmlText();

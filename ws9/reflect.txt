@@ -1,0 +1,75 @@
+1.Apply the rule of three and its derived class.
+
+the key point of implement the rule of three is that we must need to call the Base method
+    HtmlText::HtmlText(const char *filename, const char* title) : Text(filename){
+        //...
+    }
+we need to add the Text(filename)(this is for base constructor) in the initialize list but not in the inside as a content.
+
+    HtmlText &HtmlText::operator=(const HtmlText &right) {
+        if(this == &right){
+            return *this;
+        }
+        Text::operator=(right);
+        //...
+        return *this;
+    }
+we need to call the Text::operator=(right); to make sure we will make the variable in the base class create correctly.
+
+    virtual ~HtmlText();
+we must add the virtual in front of the Derived class to make sure it will be call to delete the instant correctly.
+
+2.Use your acquired skills throughout the semester to read a file into dynamically allocated memory.
+in this workshop we use the fin.get in getFileLength(); function to get the length of content then we use in the read function
+to dynamic allocate the size for m_content.
+
+void Text::read() {
+        int fileLength = getFileLength();
+        m_content = new char[fileLength + 1];
+        ifstream fin(m_filename);
+        int len = 0;
+        while (fin) {
+            m_content[len] = fin.get();
+            len += !!fin;
+        }
+        m_content[fileLength] = '\0';
+    }
+
+
+describe what you have learned in completing this workshop
+
+
+(1)istream::get:
+    std::istream& get(char& c);
+    std::istream& get(char* s, std::streamsize n);
+    std::istream& get(char* s, std::streamsize n, char delim);
+    get a single character from the file or user input. we can indicate the size we want or stop at specific character
+    if get a single character it will get a '\n' as a character, we need to handle it manually.
+    if get a indicate size or specific character(\n), it will save in input stream, we need to handle it manually.
+    in file should be like
+    file.get(c)
+    file.get(s, 100)
+    file.get(s, 1000,'\n')
+
+in this workshop we use this get to get a single character like this:
+m_content[len] = fin.get();
+save the single character in m_content[len] from fine file
+
+(2)istream::getline
+    std::istream& getline(char* s, std::streamsize n);
+    std::istream& getline(char* s, std::streamsize n, char delim);
+    getline will get a line until '\n' and stop, it will get a \n and ignore it, so we don't need to handle it.
+    or we can indicate to get the line until specific character like ','.
+    in file should be like
+    char buffer[100];
+    file.getline(buffer, 100)
+    file.getline(buffer, 1000, ',')
+
+(3)std::getline need to use with string
+    std::getline(std::istream& is, std::string& str);
+    std::getline(std::istream& is, std::string& str, char delim);
+    get the whole line from istream, and save it into string. It will get the \n and ignore it so that we don't need to handle it.
+    or we can indicate to get the line until specific character like ','.
+    std::string line;
+    while (std::getline(file, line)
+    while (std::getline(file, line, ',')

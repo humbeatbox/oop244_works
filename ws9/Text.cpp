@@ -10,7 +10,6 @@ namespace seneca {
          fin.get();
          len += !!fin;
       }
-       fin.close();//?????
       return len;
    }
 
@@ -39,12 +38,16 @@ namespace seneca {
            m_filename = nullptr;
            m_filename = new char[strlen(right.m_filename) + 1];
            strcpy(m_filename,right.m_filename);
+       } else{
+           m_filename = nullptr;
        }
        if(right.m_content != nullptr){
            delete[] m_content;
            m_content = nullptr;
            m_content = new char[strlen(right.m_content) + 1];
            strcpy(m_content,right.m_content);
+       }else{
+           m_content = nullptr;
        }
         return *this;
     }
@@ -75,9 +78,7 @@ namespace seneca {
     }
 
     const char &Text::operator[](int index) const {
-//        return (index >= 0 && index < strlen(m_content)) ? m_content[index] : m_content[strlen(m_content)];
-//        return (index >= 0 && index < strlen(m_content)) ? m_content[index] : '\0';
-        return m_content[index];//?????
+        return m_content[index];
     }
 
     Text::Text(const char *filename) {
