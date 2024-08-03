@@ -1,0 +1,26 @@
+1.code function templates
+all template should write in header file so that it can be use in cpp file correctly.
+In the beginning, we need to use the "template" key word to declare that we want to create a template
+and use the "typename" key word to define the template variable type.
+like : template <typename T>, if we have two or more argument. we need to add like this : <typename T1,typename T2>.
+and make sure the T1 type and T2 type can work properly inside the template and in main.
+like we use
+search(Cres, C, 7, "Tesla") in the main
+
+so we need to check the code of template
+does this "if(arr[i] == key)" can correctly work or not.
+arr[i] is T1 and key is T2, we need to check does it work
+or we need to overload the opperater "==" to make sure the function search can work properly.
+
+in addition, we can use "const T1* arr" and "const T1 arr[]" in this workshop
+T1* is a pointer point to T type array with the size, so that it can present one T type or many T type.
+however, the arr[] can only be many T type(array).
+
+
+2.implement calls to function templates
+In the main function, we implement the function template.
+Like: listArrayElements("All the cars:", C, 7) or search(Sres, S, 6, 4.0) etc...
+
+In search function we need to make sure the input argument can work properly.
+what if we give the 8 in search function, listArrayElements("All the cars:", C, 9);, it will have problem
+It will break at runtime when it encounters i = 8 in the loop because there is no accessible memory for C[8].
